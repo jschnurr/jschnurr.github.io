@@ -1,5 +1,7 @@
 body {
-    padding-top: 70px;
+    padding-top: 30px;
+    font-size: 18px;
+    line-height: 1.4;
 }
 
 #sidebar .list-group, #sidebar .list-group-item {
@@ -177,9 +179,9 @@ figure.floatcenter, .align-center {
 
 #banner {
     background-repeat: no-repeat;
-    background-position: left;
+    background-position: center;
     background-attachment: scroll;
-    background-size: 75%;
+    background-size: contain;
     background-color: #FFFFFF;
     margin: 0 0 20px;
     padding: 50px 0; /*controls padding around inner text*/
@@ -229,4 +231,13 @@ figure.floatcenter, .align-center {
 
 .published {
     margin-right: 15px;
+}
+
+.container .row {
+    padding-top: 30px;
+}
+
+.navbar form {
+    padding-top: 5px;
+    padding-bottom: 5px;
 }
