@@ -53,7 +53,8 @@ PLUGIN_PATHS = ['../pelican-plugins']
 # tipue_search disabled until I can fix the package to add loc
 PLUGINS = ['sitemap', 'related_posts']
 
-# STATIC_PATHS = ['images',]
+STATIC_PATHS = ['images', 'extra/CNAME']
+EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 # ARTICLE_PATHS = ['older', '2016']
 
 # Theme config
