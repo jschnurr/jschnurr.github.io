@@ -1,7 +1,6 @@
 Title: Start-up power
 Date: 2013-08-23 19:39
-Author: admin
-Category: Start-ups
+Author: Jeff Schnurr
 Slug: start-up-power
 Status: published
 

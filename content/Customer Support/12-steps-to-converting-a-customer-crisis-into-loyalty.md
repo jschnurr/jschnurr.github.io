@@ -1,8 +1,8 @@
 Title: 12 steps to converting a customer crisis into loyalty
 Date: 2013-09-01 16:18
 Author: Jeff Schnurr
-Category: Process
 Slug: 12-steps-to-converting-a-customer-crisis-into-loyalty
+Tags: problem solving,crisis,communication
 Status: published
 
 ### Your customer is furious.
@@ -12,10 +12,6 @@ glitch has degraded it or taken it completely out of service.   They
 turn to you, and the technical support team, to make things right.  Fix
 it
 **now**.
-<div style="float: right">
-[![frustration1](http://www.jeffsidea.com/wp-content/uploads/2014/08/frustration1-300x296.gif)](http://www.jeffsidea.com/wp-content/uploads/2014/08/frustration1.gif)
-</div>
-
 If you're in technical support, you've seen this movie before.  Bring in
 the engineers, order pizza, pore over stack traces into the wee hours of
 the morning - work the problem until it's resolved.  For an adrenaline
@@ -31,13 +27,12 @@ understand what the customer needs, and your empathy is genuine.  In
 fact, you're about to prove how committed you are to this customer, and
 just how much they can count on you when there is a problem.
 
+![frustration1](<{filename}/images/frustration1-300x296.gif>){.pull-right}
 Let's examine some of the best practices, developed over years of
 technical support incidents with Fortune 500 customers, that can truly
 impact the outcome of an otherwise bad situation.
 
 ### Under fire - the 12 behaviors that prove you care
-
-[/fusion\_text][fusion\_text]
 
 ### 1. It's our problem
 
@@ -234,13 +229,13 @@ Commitment to a debrief is a useful tactical tool during the crisis as
 well, allowing for complaints or unhelpful observations by frustrated
 people to be channeled into a transparent process *after* we’ve solved
 the problem. It sends the message that you’re willing to listen, just
-not right now.[separator style\_type="single" top\_margin="40"
-bottom\_margin="40" sep\_color="" icon="" width="" class=""
-id=""]***Technical Support is not for the faint of heart.***  For those
+not right now. 
+
+***Technical Support is not for the faint of heart.***  For those
 of you supporting enterprise customers on mission critical systems, I
 hope that you find this information helpful.  For as much as it may not
 feel that way at the time, these events really do cement a high-trust,
 enduring relationship between you and your customer, and amongst the
 support team as well - everybody is stronger after the battle.
 
-Good luck![/fusion\_text]
+Good luck!

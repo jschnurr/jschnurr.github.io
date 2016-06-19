@@ -93,6 +93,7 @@ a, a:hover {
 .entry-content img {
     max-width: 100%;
     height: auto;
+    margin: 10px;
 }
 
 .entry-content figcaption, .caption {
@@ -242,11 +243,9 @@ figure.floatcenter, .align-center {
     padding-bottom: 5px;
 }
 
-.entry-content img {
-    max-width: 100%;
-    height: auto;
-    float: left;
-    margin: 20px;
+.summary img {
+    margin-right: 10px;
+    margin-left: 10px;
 }
 
 #twitter-follow {

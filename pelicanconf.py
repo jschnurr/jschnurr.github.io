@@ -14,7 +14,7 @@ HIDE_SITENAME = False
 SUMMARY_MAX_LENGTH = 100
 
 # can be useful in development, but set to False when you're ready to publish
-RELATIVE_URLS = False
+RELATIVE_URLS = True
 
 PATH = 'content'
 
@@ -40,6 +40,7 @@ SOCIAL = (('Twitter', 'http://www.twitter.com/jeffsidea'),
           ('LinkedIn', 'https://ca.linkedin.com/in/schnurr'),
           ('GitHub', 'https://github.com/jschnurr'),
           ('Facebook', 'https://www.facebook.com/jschnurr'), )
+GITHUB_URL = 'https://github.com/jschnurr'
 
 DEFAULT_PAGINATION = 10
 DEFAULT_CATEGORY = 'General'
@@ -49,7 +50,8 @@ DISPLAY_CATEGORIES_ON_SIDEBAR = True
 
 DIRECT_TEMPLATES = ('index', 'categories', 'tags', 'archives', 'search')
 PLUGIN_PATHS = ['../pelican-plugins']
-PLUGINS = ['tipue_search', 'clean_summary', 'sitemap', 'related_posts']
+# tipue_search disabled until I can fix the package to add loc
+PLUGINS = ['sitemap', 'related_posts']
 
 # STATIC_PATHS = ['images',]
 # ARTICLE_PATHS = ['older', '2016']
@@ -60,20 +62,12 @@ BOOTSTRAP_THEME = 'cosmo'
 
 # DISPLAY_PAGES_ON_MENU
 DISPLAY_CATEGORIES_ON_MENU = False
-# GOOGLE_ANALYTICS (classic tracking code)
-# GOOGLE_ANALYTICS_UNIVERSAL and GOOGLE_ANALYTICS_UNIVERSAL_PROPERTY (Universal tracking code)
-DISQUS_SITENAME = 'jeffsidea'
 PYGMENTS_STYLE = 'colorful'
 BOOTSTRAP_FLUID = False
 DISPLAY_ARTICLE_INFO_ON_INDEX = True
 ADDTHIS_PROFILE = 'ra-5761ffa09e14ce18'
 TWITTER_USERNAME = 'jeffsidea'
 TWITTER_WIDGET_ID = '663435651132489728'
-
-# TAG_CLOUD_STEPS = 4
-# TAG_CLOUD_MAX_ITEMS = 100
-# TAG_CLOUD_SORTING = 'random'
-# TAG_CLOUD_BADGE = True
 
 ABOUT_ME = '''Innovation Lab Director in Waterloo, Canada. Ignites ideas through technology and design.
             <div id=twitter-follow>
@@ -86,7 +80,7 @@ AVATAR = '/images/jschnurr-profile-300x200.jpg'
 
 # clean-summary plugin
 CLEAN_SUMMARY_MAXIMUM = 0  # maximum number of images in your summary
-CLEAN_SUMMARY_MINIMUM_ONE = False  # add first image if summary doesn't have one
+CLEAN_SUMMARY_MINIMUM_ONE = True  # add first image if summary doesn't have one
 
 # sitemap plugin
 SITEMAP = {

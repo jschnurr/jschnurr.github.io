@@ -1,7 +1,6 @@
 Title: One track mind
 Date: 2011-05-29 09:29
-Author: admin
-Category: Ideas
+Author: Jeff Schnurr
 Slug: one-track-mind
 Status: published
 

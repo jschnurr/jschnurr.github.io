@@ -1,12 +1,12 @@
 Title: Building a rock-star project team
 Date: 2013-09-16 21:54
-Author: admin
-Category: Leadership
+Author: Jeff Schnurr
 Slug: building-a-rock-star-project-team
+Tags: projects,teams
 Status: published
 
-[![hockeynet](http://www.jeffsidea.com/wp-content/uploads/2013/09/hockeynet-e1407082102330.gif)](http://www.jeffsidea.com/wp-content/uploads/2013/09/hockeynet.gif)In
-professional hockey, teams have a General Manager (GM) and a Coach
+![hockeynet](<{filename}/images/hockeynet-e1407082102330.gif>){.pull-right}
+In professional hockey, teams have a General Manager (GM) and a Coach
 charged with one mission - put a team on the ice that is both capable
 and driven to deliver a truly exceptional outcome - the Stanley Cup.
  Every factor must be considered individually and then again as a whole,

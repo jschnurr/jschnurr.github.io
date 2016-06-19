@@ -1,7 +1,6 @@
 Title: The Plan
 Date: 2010-10-25 00:38
-Author: admin
-Category: Planning
+Author: Jeff Schnurr
 Slug: the-plan
 Status: published
 

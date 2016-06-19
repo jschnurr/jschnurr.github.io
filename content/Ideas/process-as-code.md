@@ -1,7 +1,6 @@
 Title: Process as code
 Date: 2011-09-03 04:10
-Author: admin
-Category: Process
+Author: Jeff Schnurr
 Slug: process-as-code
 Status: published
 

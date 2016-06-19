@@ -3,7 +3,7 @@ Date: 2014-10-05 14:20
 Tags: fundraising
 Status: published
 
-![Red Canoe](<{filename}images/CedarRedCanoe.jpg>)
+![Red Canoe](<{filename}/images/CedarRedCanoe.jpg>)
 ### They call it an Impact Tour.
 
 You board a yellow school bus, which takes you to one of the many places
@@ -32,7 +32,7 @@ basketball court. They feed 96 kids in here, three times a day. In the
 back, a small commercial kitchen is in need to repair, something they
 have planned for this winter.
 
-![Stevensons Childrens Camp Sign](<{filename}images/stevenson-sign.png>)
+![Stevensons Childrens Camp Sign](<{filename}/images/stevenson-sign.png>)
 Jason tells us more about the campers, who aren't here on this warm
 September day. They're kids between 7 and 10 who, for whatever reason,
 face difficult life challenges and wouldn't otherwise have the

@@ -1,12 +1,12 @@
 Title: What I learned starting a company in 54 hours
 Date: 2013-09-23 14:13
-Author: admin
-Category: Start-ups
+Author: Jeff Schnurr
 Slug: what-i-learned-starting-a-company-in-54-hours
+Tags: start-up,hackathon
 Status: published
 
-[![startup\_weekend](http://www.jeffsidea.com/wp-content/uploads/2014/08/startup_weekend-300x150.png)](http://www.jeffsidea.com/wp-content/uploads/2014/08/startup_weekend.png)On
-Friday night, 100 developers, designers and business people came
+![startup weekend](<{filename}/images/startupweekend/startup_weekend-300x150.png>){.pull-right}
+On Friday night, 100 developers, designers and business people came
 together at the [Communitech
 Hub](http://www.communitech.ca/connect/the-communitech-hub/) in
 Kitchener to start a company.  The event was called [Startup Weekend
@@ -44,8 +44,7 @@ to work on.  When the dust settled, there were about 10 ideas selected,
 and the crowd self-organized around those ideas to build teams for the
 weekend.
 
-![2013-09-23
-14.05.01](http://www.jeffsidea.com/wp-content/uploads/2013/09/2013-09-23-14.05.01-300x168.jpg)
+![SWKW](<{filename}/images/startupweekend/2013-09-23-14.05.01-300x168.jpg>){.pull-right}
 
 I joined a team that had merged two related ideas together - the ability
 to more easily find sports fields using annotated mapping, and an easier
@@ -69,7 +68,7 @@ development platform, languages, libraries, databases and interfaces.
  We set up a project in [Trello](https://trello.com/) to organize
 activity, and talked about the high level milestones for the weekend.
 
-![logo2](http://www.jeffsidea.com/wp-content/uploads/2013/09/logo2-300x122.png)
+![logo2](<{filename}/images/startupweekend/logo2-300x122.png>){.pull-right}
 
 We sketched out a bunch of wire frames in a notebook to illustrate the
 concept.  In all, we had 7 screens that embodied the concept, and
@@ -148,9 +147,9 @@ Sunday night, it all came together.   This is what it sounded like, on
 stage in front of our fellow Startup Weekend participants, mentors, and
 of course - the [judging panel.](http://kw.startupweekend.org/#judges)
 
-![logo](http://www.jeffsidea.com/wp-content/uploads/2013/09/logo-300x145.png)
 
-[dropcap style="1" size="3"]E[/dropcap]verybody wants to be healthy. We
+<div class="well" markdown="1">
+Everybody wants to be healthy. We
 need to harness the power of technology to get people outside, and
 re-engage in what we would call retro-social - before Twitter and
 Facebook, when you would gather with your friends and get out on the
@@ -165,8 +164,7 @@ together.
 
 So what is the problem exactly?
 
-![Home
-Screen](http://www.jeffsidea.com/wp-content/uploads/2013/09/1.png "gameIt application - Home Screen")
+![Home Screen](<{filename}/images/startupweekend/1.png> "gameIt application - Home Screen"){.pull-right}
 
 It turns out that organizing a pick-up game is hard, so there aren’t as
 many organizers as there should be. And as a player, finding a quick
@@ -182,9 +180,8 @@ team - share, communicate, trash talk, all on the platform. And after
 the game, keep the conversation going, or even set a re-match. When it’s
 over, the team dissolves and you do it again next time.
 
-[![Search
-Screen](http://www.jeffsidea.com/wp-content/uploads/2013/09/2.png "gameIt app - Search for a Pick-up Game")](http://www.jeffsidea.com/wp-content/uploads/2013/09/2.png)We
-will monetize through advertising partnerships with local sports
+![Search Screen](<{filename}/images/startupweekend/2.png> "gameIt app - Search for a Pick-up Game"){.pull-right}
+We will monetize through advertising partnerships with local sports
 retailers, who can deliver advertising to a qualified and captive
 audience, right in the app. Imagine the power of an ad for soccer gear
 that is delivered to someone that is fully engaged in a process to sign
@@ -202,8 +199,7 @@ critical mass, we will engage sponsors to increase reach and drive
 revenue.  We estimate this method will drive the virility required to
 reach millions of users within a year.
 
-![View
-Game](http://www.jeffsidea.com/wp-content/uploads/2013/09/3.png "gameIt app - View Game")
+![View Game](<{filename}/images/startupweekend/3.png> "gameIt app - View Game"){.pull-right}
 
 In the future, we have a bigger vision - we’ll help get people outside,
 get healthy, and remember what social used to mean. We think that
@@ -218,6 +214,7 @@ make pick-up games as effortless as ordering a pizza. We all know it
 would be a much better choice.
 
 gameIt - *take it outside.*
+</div>
 
 What I Learned
 --------------
@@ -262,9 +259,7 @@ Will we take gameIt to market?  Well, the team sure seems eager to
 continue the work, and we have a huge head start.  We decided to take a
 few days to decompress and then talk about it.
 
-![Team gameIt
-Photo](http://www.jeffsidea.com/wp-content/uploads/2013/09/team-300x300.jpg)
-
+![Team gameIt Photo](<{filename}/images/startupweekend/team-300x300.jpg>){.pull-right}
 Many thanks to [Communitech](http://www.communitech.ca/), [University of
 Waterloo](http://uwaterloo.ca/),
 [BDC](http://www.bdc.ca/en/Pages/home.aspx#.UTUSZTDkvSY) & the other
@@ -278,9 +273,9 @@ Jabbarli, Farhan Hossain, Sunaal Mathew, NV Bhargava & Michael Luubert
 - for a truly unique weekend!  These brilliant young people will surely
 go on to do tremendous things.
 
-[note color="\#FFCC00"]Check out our b-roll action shots from [The
+Check out our b-roll action shots from [The
 National on
-CBC](http://www.cbc.ca/player/News/TV+Shows/The+National/ID/2407782973/)[/note]
+CBC](http://www.cbc.ca/player/News/TV+Shows/The+National/ID/2407782973/)
 
 Hope you enjoyed the post.  Please leave a comment and let me know what
 you think!
