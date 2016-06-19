@@ -1,12 +1,11 @@
 Title: Improve your products with a story
 Date: 2013-10-07 16:44
-Author: admin
-Category: Ideas
-Slug: improve-your-products-with-a-story
+Tags: support,product
 Status: published
 
-[![QualityChart](http://www.jeffsidea.com/wp-content/uploads/2013/10/QualityChart-300x273.jpg)](http://www.jeffsidea.com/wp-content/uploads/2013/10/QualityChart.jpg)Sometimes,
-product quality problems just look like numbers.  As a Customer Support
+Sometimes, product quality problems just look like numbers. 
+
+As a Customer Support
 professional, you probably don't feel this way, since all of that time
 immersed with customers in real world scenarios creates a unique and
 powerful perspective that gives meaning to the data.  The engineers,
@@ -40,8 +39,7 @@ they were stuck.  We needed a new approach.
 
 ### Field Trip
 
-[![2012-01-31ar-csi-goggles](http://www.jeffsidea.com/wp-content/uploads/2013/10/2012-01-31ar-csi-goggles-300x195.jpg)](http://www.jeffsidea.com/wp-content/uploads/2013/10/2012-01-31ar-csi-goggles.jpg)We
-decided to take it out of the lab.  We found a real live customer -
+We decided to take it out of the lab.  We found a real live customer -
 someone who represented the greatest probability of encountering the
 problem - and asked her to let us shadow her while she used the product.
 
@@ -66,7 +64,7 @@ went through the process, with a heads-up display (HUD) of sorts
 overlayed to show what else was happening that she couldn't see at the
 time.
 
-[![stu](http://www.jeffsidea.com/wp-content/uploads/2013/10/stu.jpg)](http://www.jeffsidea.com/wp-content/uploads/2013/10/stu.jpg)
+![Stu](<{filename}images/stu.jpg>){.pull-right}
 
 ### Welcome Stu
 
@@ -89,8 +87,7 @@ our customer as we walked through the customer journey, complete with
 annotations and the ever insightful perspective of our friend Stu, who
 was present on nearly every slide, adding context and meaning.
 
-[![man\_with\_microphone](http://www.jeffsidea.com/wp-content/uploads/2013/10/man_with_microphone.jpg)](http://www.jeffsidea.com/wp-content/uploads/2013/10/man_with_microphone.jpg)We
-got a lot of questions about the pictures & associated data, but there
+We got a lot of questions about the pictures & associated data, but there
 was no controversy over the facts themselves.  The story was clear - you
 could see the problem, plain as day, and we all knew it didn't live up
 to the expectations we set for ourselves, or our customers.  We had to

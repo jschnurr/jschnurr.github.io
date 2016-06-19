@@ -241,3 +241,33 @@ figure.floatcenter, .align-center {
     padding-top: 5px;
     padding-bottom: 5px;
 }
+
+.entry-content img {
+    max-width: 100%;
+    height: auto;
+    float: left;
+    margin: 20px;
+}
+
+#twitter-follow {
+    padding-top: 10px;
+}
+
+section#content .page-header {
+    margin-top: 0px;
+    margin-bottom: 10px;
+}
+
+article .page-header {
+    padding-bottom: 0px;
+    margin: 2px 0 21px;
+    border-bottom: 0px solid #e6e6e6;
+}
+
+article .page-header h1 {
+    font-size: 43px;
+}
+
+#sidebar .list-group-item {
+    padding: 5px 15px;
+}

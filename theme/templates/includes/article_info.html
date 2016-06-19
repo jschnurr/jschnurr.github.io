@@ -27,8 +27,9 @@
     {% endif %}
 
     {% if SHOW_ARTICLE_CATEGORY %}
-        <span class="label label-default">Category</span>
-        <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+            <span class="published"> <i class="fa fa-sitemap"></i>
+                <a href="{{ SITEURL }}/{{ article.category.url }}">{{ article.category }}</a>
+            </span>
     {% endif %}
 
     {% if PDF_PROCESSOR %}

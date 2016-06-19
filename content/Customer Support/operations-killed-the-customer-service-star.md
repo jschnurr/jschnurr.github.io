@@ -1,8 +1,6 @@
 Title: Operations killed the Customer Service star
 Date: 2013-11-10 14:08
-Author: admin
-Category: Ideas, Operations
-Slug: operations-killed-the-customer-service-star
+Tags: social,support,operations
 Status: published
 
 For many companies, customer service is purely a numbers game. Average
