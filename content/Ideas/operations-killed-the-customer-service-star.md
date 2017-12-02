@@ -17,8 +17,7 @@ their time of need, at the point when their loyalty is most vulnerable,
 our plan is to stick to the script and get this over with as fast as
 possible?
 
-Social is different
--------------------
+### Social is different
 
 Service executives are learning that Social Media is different. You're
 not being "social" when every tweet comes from an anonymous corporate
@@ -35,8 +34,7 @@ The ops folks are rattled by the whole concept. The cost, the risk, the
 inconsistency - it can never work! Can't we get those customers to call
 us?
 
-Service disruption
-------------------
+### Service disruption
 
 Social media is more than a channel - it is disrupting the business of
 customer service overall. Many companies are feeling the heat, and not
@@ -55,8 +53,7 @@ customer gets assigned a dollar value, and it becomes quaint - or even
 foolish - to provide factory service and waive the opportunity to
 realize that benefit.
 
-The transformation
-------------------
+### The transformation
 
 It's then, and only then, when operations says "can't they just tweet
 us"? The support team members are encouraged to express their
