@@ -5,21 +5,19 @@ from __future__ import unicode_literals
 AUTHOR = u'Jeff Schnurr'
 SITENAME = u'jeffsidea.com'
 SITEURL = ''
-# SITELOGO = 'images/jeffsidea-01.png'
-# SITELOGO_SIZE = '40'
-BANNER = 'images/jeffsidea-02.png'
+SITELOGO = 'images/jeffsidea-01.png'
+SITELOGO_SIZE = '40'
+# BANNER = 'images/jeffsidea-02.png'
+BANNER = 'images/blog-header.png'
 BANNER_ALL_PAGES = False
 FAVICON = 'images/favicon.png'
 HIDE_SITENAME = False
-SUMMARY_MAX_LENGTH = 100
+SUMMARY_MAX_LENGTH = 200
 
 # can be useful in development, but set to False when you're ready to publish
 RELATIVE_URLS = True
-
 PATH = 'content'
-
 TIMEZONE = 'America/Toronto'
-
 DEFAULT_LANG = u'en'
 
 # development setting
@@ -46,31 +44,37 @@ DEFAULT_PAGINATION = 10
 DEFAULT_CATEGORY = 'General'
 SHOW_ARTICLE_CATEGORY = True
 SLUGIFY_SOURCE = 'title'
-DISPLAY_CATEGORIES_ON_SIDEBAR = True
+DISPLAY_CATEGORIES_ON_SIDEBAR = False
 
 DIRECT_TEMPLATES = ('index', 'categories', 'tags', 'archives', 'search')
 PLUGIN_PATHS = ['../pelican-plugins']
-# tipue_search disabled until I can fix the package to add loc
-PLUGINS = ['sitemap', 'related_posts']
+# i18n_subsites and jinja_environment required by template
+PLUGINS = ['sitemap', 'related_posts', 'i18n_subsites', 'tipue_search']
+JINJA_ENVIRONMENT = {
+    'extensions': ['jinja2.ext.i18n'],
+}
 
 STATIC_PATHS = ['images', 'extra/CNAME']
 EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
 # ARTICLE_PATHS = ['older', '2016']
 
-# Theme config
-THEME = 'theme'
-BOOTSTRAP_THEME = 'cosmo'
+# # Theme config
+THEME = '../pelican-themes/pelican-bootstrap3'
+BOOTSTRAP_THEME = 'readable'
+CUSTOM_CSS = 'theme/css/custom.css'
+CUSTOM_JS = 'theme/js/custom.js'
 
-# DISPLAY_PAGES_ON_MENU
+DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = False
 PYGMENTS_STYLE = 'colorful'
 BOOTSTRAP_FLUID = False
-DISPLAY_ARTICLE_INFO_ON_INDEX = True
+DISPLAY_ARTICLE_INFO_ON_INDEX = False
 ADDTHIS_PROFILE = 'ra-5761ffa09e14ce18'
 TWITTER_USERNAME = 'jeffsidea'
 TWITTER_WIDGET_ID = '663435651132489728'
+TWITTER_CARDS = True # specify og_image on articles to put an image in the twitter card
 
-ABOUT_ME = '''Innovation Lab Director in Waterloo, Canada. Ignites ideas through technology and design.
+ABOUT_ME = '''Digital Innovation and Technology Executive. Emerging tech and start-up advocate. Curious problem solver.
             <div id=twitter-follow>
             <a class="twitter-follow-button"
             href="https://twitter.com/jeffsidea"
