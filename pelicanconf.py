@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 AUTHOR = u'Jeff Schnurr'
-SITENAME = u'jeffsidea.com'
+SITENAME = u'@jeffsidea'
 SITEURL = ''
 SITELOGO = 'images/jeffsidea-01.png'
 SITELOGO_SIZE = '40'
@@ -11,7 +11,7 @@ SITELOGO_SIZE = '40'
 BANNER = 'images/blog-header.png'
 BANNER_ALL_PAGES = False
 FAVICON = 'images/favicon.png'
-HIDE_SITENAME = False
+HIDE_SITENAME = True
 SUMMARY_MAX_LENGTH = 200
 
 # can be useful in development, but set to False when you're ready to publish
@@ -41,7 +41,7 @@ SOCIAL = (('Twitter', 'http://www.twitter.com/jeffsidea'),
 GITHUB_URL = 'https://github.com/jschnurr'
 
 DEFAULT_PAGINATION = 10
-DEFAULT_CATEGORY = 'General'
+DEFAULT_CATEGORY = 'Ideas'
 SHOW_ARTICLE_CATEGORY = True
 SLUGIFY_SOURCE = 'title'
 DISPLAY_CATEGORIES_ON_SIDEBAR = False
@@ -49,7 +49,7 @@ DISPLAY_CATEGORIES_ON_SIDEBAR = False
 DIRECT_TEMPLATES = ('index', 'categories', 'tags', 'archives', 'search')
 PLUGIN_PATHS = ['../pelican-plugins']
 # i18n_subsites and jinja_environment required by template
-PLUGINS = ['sitemap', 'related_posts', 'i18n_subsites', 'tipue_search']
+PLUGINS = ['sitemap', 'i18n_subsites', 'tipue_search']
 JINJA_ENVIRONMENT = {
     'extensions': ['jinja2.ext.i18n'],
 }
@@ -65,7 +65,7 @@ CUSTOM_CSS = 'theme/css/custom.css'
 CUSTOM_JS = 'theme/js/custom.js'
 
 DISPLAY_PAGES_ON_MENU = False
-DISPLAY_CATEGORIES_ON_MENU = False
+DISPLAY_CATEGORIES_ON_MENU = True
 PYGMENTS_STYLE = 'colorful'
 BOOTSTRAP_FLUID = False
 DISPLAY_ARTICLE_INFO_ON_INDEX = False
