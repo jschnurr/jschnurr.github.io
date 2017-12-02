@@ -4,7 +4,7 @@ Tags: fundraising
 Status: published
 
 ![Red Canoe](<{filename}/images/CedarRedCanoe.jpg>)
-### They call it an Impact Tour.
+#### They call it an Impact Tour.
 
 You board a yellow school bus, which takes you to one of the many places
 funded in part by the [United Way](http://www.unitedway.ca/). Today, our
@@ -118,7 +118,7 @@ Impact Tour, indeed.
 
 ---
 
-### Beyond fundraising
+#### Beyond fundraising
 
 If you've read this far, you might be wondering what this story has to
 do with technology, and why it appears in this blog. Like many of you,
@@ -205,7 +205,7 @@ principles.
     into my daily flow. I help, I feel good, and I wasn't
     inconvenienced, isn't that fun?
 
-### Making it happen
+#### Making it happen
 
 Who would build something like this? Has it already been done? Is it too
 crazy - just the product the Silicon Valley philosophy that engineering

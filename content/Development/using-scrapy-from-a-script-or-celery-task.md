@@ -64,17 +64,17 @@ settings.set('USER_AGENT',
 
 ```
 
-## Jobs
+### Jobs
 Next, we need to define one or more instances of `scrapyscript.Job`.  Jobs contain your spider,
 and any data (payload) you would like to pass into the running instance.
 
-### Basic Job
+#### Basic Job
 
 ```python
 basicjob = Job(spider)
 ```
 
-### Passing an object
+#### Passing an object
 
 To make extra data available in the running spider, add it to the job using the payload kwarg.
 
@@ -83,7 +83,7 @@ jobwithdata = Job(spider,
                   payload={'mantra': 'Simple is better than complex.'})  # availabe in spider as self.payload
 ```
 
-## Processor
+### Processor
 We have now defined two jobs - `basicjob` and `jobwithdata`.  To start Scrapy and run these jobs,
 we need to instantiate an instance of `scrapyscript.Processor`, call the `run` method, and pass
 them in as a list.
@@ -99,15 +99,15 @@ Processor(settings=settings).run([basicjob, jobwithdata])
       'title': ['Welcome to Python.org']}]
 
 
-## How does it work?
+### How does it work?
 scrapyscript uses a fork of the Multiprocessing library to create a process, launch a twisted reactor,
 and run the spiders in Scrapy.  All Jobs are run in parallel, and the process blocks until all
 are complete.  The results come back as a list, as you can see above.
 
-## Using Celery
+### Using Celery
 In part 2, I'll walk through the process of using scrapyscript in a Celery worker.
 
-## Complete Code
+### Complete Code
 For your convenience, here is the full example.
 
 ```python

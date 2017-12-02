@@ -54,15 +54,18 @@ JINJA_ENVIRONMENT = {
     'extensions': ['jinja2.ext.i18n'],
 }
 
-STATIC_PATHS = ['images', 'extra/CNAME']
-EXTRA_PATH_METADATA = {'extra/CNAME': {'path': 'CNAME'},}
-# ARTICLE_PATHS = ['older', '2016']
+CUSTOM_CSS = 'static/css/custom.css'
+CUSTOM_JS = 'static/js/custom.js'
+STATIC_PATHS = ['images', 'extra']
+EXTRA_PATH_METADATA = {
+    'extra/CNAME': {'path': 'CNAME'},
+    'extra/custom.css': {'path': 'static/css/custom.css'},
+    'extra/custom.js': {'path': 'static/js/custom.js'},
+    }
 
 # # Theme config
 THEME = '../pelican-themes/pelican-bootstrap3'
 BOOTSTRAP_THEME = 'readable'
-CUSTOM_CSS = 'theme/css/custom.css'
-CUSTOM_JS = 'theme/js/custom.js'
 
 DISPLAY_PAGES_ON_MENU = False
 DISPLAY_CATEGORIES_ON_MENU = True
