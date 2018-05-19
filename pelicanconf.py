@@ -34,7 +34,7 @@ ARTICLE_URL = '{date:%Y}/{date:%m}/{slug}/'
 ARTICLE_SAVE_AS = '{date:%Y}/{date:%m}/{slug}/index.html'
 
 # Social widget
-SOCIAL = (('Twitter', 'http://www.twitter.com/jeffsidea'),
+SOCIAL = (('Twitter', 'https://www.twitter.com/jeffsidea'),
           ('LinkedIn', 'https://ca.linkedin.com/in/schnurr'),
           ('GitHub', 'https://github.com/jschnurr'),
           ('Facebook', 'https://www.facebook.com/jschnurr'), )
