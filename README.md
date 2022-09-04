@@ -1,156 +1,161 @@
-# eleventy-high-performance-blog
+# 11ty-sass-images-seo
 
-A starter repository for building a blog with the [Eleventy static site generator](https://www.11ty.dev/) implementing a wide range of performance best practices.
+> The four ingredients to an awesome static site.
 
-![Screenshot showing that the site achieves 100 points on Lighthouse by default](https://cdn.glitch.com/db98564e-04da-47bf-a3d6-70803c3d0fe7%2FScreen%20Shot%202020-09-04%20at%2012.07.27.png?v=1599214260591)
+This is an opinionated starter for [11ty](https://github.com/11ty/eleventy) that includes:
 
-Based on the awesome [eleventy-base-blog](https://github.com/11ty/eleventy-base-blog).
+- Pre-configured 11ty directories (input, output, data, includes, layouts) and custom filters.
+- A separate directory for 11ty-specific configs: filters, shortcodes, etc.
+- Basic image optimization using the official [`@11ty/eleventy-img`](https://github.com/11ty/eleventy-img) plugin.
+- Sass compilation, including partials for breakpoints, mixins, functions, and CSS resets.
+- Basic SEO enhancements: essential meta tags and a programmatically generated `sitemap.xml` and `robots.txt`.
+- Auto-generated favicon link tags from a single source image.
+- Convenient `package.json` scripts for develop, production, and linting.
+- Global configuration files (pre-commit/checkout hooks, line ending normalization, linters, VS Code settings).
 
-## Demo
+This starter template does not:
 
-- [Demo](https://eleventy-high-performance-blog-sample.industrialempathy.com/)
-- [Original site this template was based on](https://www.industrialempathy.com/)
+- Generate any output CSS. It only sets up basic Sass boilerplate for you to customize.
+- Make any assumptions about your build pipeline or tooling (e.g., gulp).
+- Make any assumptions about your client-side JavaScript bundler or pipeline.
+- Configure a Markdown processor (you can install `markdown-it` if you need it).
+- Get in your way.
 
-## Getting Started
+Most of this template serves as the foundation for [my personal website](https://github.com/AleksandrHovhannisyan/aleksandrhovhannisyan.com).
 
-### 1. Generate a new repository from this repository template
+## Table of Contents
 
-Click the ["Use this template"](https://github.com/google/eleventy-high-performance-blog/generate) button. Alternatively you can clone this repo yourself and push your copy to your favorite git repository.
+<!-- no toc -->
+- [Installation](#installation)
+- [Checklist](#checklist)
+- [Project Structure](#project-structure)
+  - [`src`](#src)
+  - [`11ty`](#11ty)
+- [Image Optimization](#image-optimization)
+- [`package.json` Scripts](#packagejson-scripts)
+- [Custom Front Matter](#custom-front-matter)
+- [CSS (Sass)](#css-sass)
+- [Editor Settings](#editor-settings)
+- [Linting](#linting)
 
-### 2. Clone your new repository
+## Installation
 
-```
-git clone https://github.com/YOUR_REPO
-```
+1. Click the `Use this template` button.
 
-### 3. Navigate to the directory
+![The header for this repo, showing various tabs and action buttons. The green Use this template button has a red focus ring around it.](https://user-images.githubusercontent.com/19352442/143769374-87b9ec66-f95f-439e-a7b4-a9f6e02a0e9d.png)
 
-```
-cd my-blog-name
-```
+2. Install dependencies with `yarn` (if you prefer another package manager, delete `yarn.lock`).
 
-### 4. Install dependencies
+3. Follow [the checklist](#checklist).
 
-```
-npm install
-```
+## Checklist
 
-### 5. Build, serve, watch and test
+The following tasks are **required**:
 
-```
-npm run watch
-```
+- [ ] Fill out [`src/_data/site.js`](./src/_data/site.js) with your site's metadata and URL.
+- [ ] Update [`package.json`](./package.json) with your site's info.
+- [ ] Replace the favicon in [`src/assets/images/favicon`](./src/assets/images/favicon/) with your site's favicon.
 
-### 6. Build and test
+**Optionally**, you may also want to customize:
 
-```
-npm run build
-```
+- [ ] The [11ty directory config](./11ty/constants/dir.js).
+- [ ] The template format and engine in [`.eleventy.js`](./.eleventy.js).
+- [ ] The [image shortcode](./11ty/shortcodes/image.js).
+- [ ] Any [ESLint](./.eslintrc.json), [Prettier](./.prettierrc), or [Stylelint](./.stylelintrc.json) linter rules.
+- [ ] Any filters, like the custom slugify function.
+- [ ] Your project's [style tokens, such as media query breakpoints](./src/assets/styles/_tokens.scss).
+- [ ] The browserslist config in [`package.json`](./package.json), for client-side bundlers.
 
-## Customize
+## Project Structure
 
-- Search for "Update me" across files in your editor to find all the site specific things you should update.
-- Update the favicons in 'img/favicon/'.
-- Otherwise: Knock yourself out. This is a template repository.
-- For a simple color override, adjust these CSS variables at the top of `css/main.css`.
+### `src`
 
-```css
-:root {
-  --primary: #e7bf60;
-  --primary-dark: #f9c412;
-}
-```
+11ty input directory containing all of the site's files, templates, assets, etc.
 
-## Features
+- `_data`: global site data.
+- `_includes`: partials/includes.
+- `_layouts`: site layouts. A default layout already exists.
+- `_pages`: site pages. Each page uses the default layout.
+- `assets`: images, fonts, CSS, etc.
+- `robots.liquid`: writes a `robots.txt` to your site.
+- `sitemap.liquid`: creates a basic sitemap for your site.
 
-### Performance outcomes
+### `11ty`
 
-- Perfect score in applicable lighthouse audits (including accessibility).
-- Single HTTP request to [First Contentful Paint](https://web.dev/first-contentful-paint/).
-- Very optimized [Largest Contentful Paint](https://web.dev/lcp/) (score depends on image usage, but images are optimized).
-- 0 [Cumulative Layout Shift](https://web.dev/cls/).
-- ~0 [First Input Delay](https://web.dev/fid/).
+Eleventy-specific configurations for filters, collections, general utilities, etc. Import these into your `.eleventy.js` to configure Eleventy. You are encouraged to write tests for any core utilities (e.g., filters).
 
-### Performance optimizations
+## Image Optimization
 
-#### Images
+This starter includes basic image optimization using the official [`@11ty/eleventy-img`](https://github.com/11ty/eleventy-img) plugin. The image shortcode can be invoked with a source-relative path to your target image and any other arguments you want to supply. See [`./11ty/shortcodes/image.js`](./11ty/shortcodes/image.js).
 
-- Generates multiple sizes of each image and uses them in **`srcset`**.
-- Generates a **blurry placeholder** for each image (without adding an HTML element or using JS).
-- Transcodes images to [AVIF](<https://en.wikipedia.org/wiki/AV1#AV1_Image_File_Format_(AVIF)>) and [webp](https://developers.google.com/speed/webp) and generates `picture` element.
-- Transcodes GIFs to muted looping autoplaying MP4 videos for greatly reduced file size.
-- **Lazy loads** images (using [native `loading=lazy`](https://web.dev/native-lazy-loading/)).
-- **Async decodes** images (using `decoding=async`).
-- **Lazy layout** of images and placeholders using [`content-visibility: auto`](https://web.dev/content-visibility/#skipping-rendering-work-with-content-visibility).
-- **Avoids CLS impact** of images by inferring and providing width and height (Supported in Chrome, Firefox and Safari 14+).
-- Downloads remote images and stores/serves them locally.
-- Immutable URLs.
+For a more advanced setup, see my tutorial on [lazily loading images in Eleventy](https://www.aleksandrhovhannisyan.com/blog/eleventy-image-lazy-loading/).
 
-#### CSS
+## `package.json` Scripts
 
-- Defaults to the compact "classless" [Bahunya CSS framework](https://kimeiga.github.io/bahunya/).
-- Inlines CSS.
-- Dead-code-eliminates / tree-shakes / purges (pick your favorite word) unused CSS on a per-page basis with [PurgeCSS](https://purgecss.com/).
-- Minified CSS with [csso](https://www.npmjs.com/package/csso).
+- `clean`: purges the build output directory.
+- `debug:html`: starts 11ty in debug mode.
+- `serve`: serves the site's HTML and CSS in development mode.
+- `build`: builds the site's HTML and CSS for production.
+- `lint`: runs all linters to detect any issues.
+- `lint:fix`: runs all linters and auto-fixes any issues (if possible).
 
-#### Miscellaneous
+## Custom Front Matter
 
-- Immutable URLs for JS.
-- Sets immutable caching headers for images, fonts, and JS (CSS is inlined).
-- Minifies HTML and optimizes it for compression. Uses [html-minifier](https://www.npmjs.com/package/html-minifier) with aggressive options.
-- Uses [rollup](https://rollupjs.org/) to bundle JS and minifies it with [terser](https://terser.org/).
-- Prefetches same-origin navigations when a navigation is likely.
-- If an AMP files is present, [optimizes it](https://amp.dev/documentation/guides-and-tutorials/optimize-and-measure/optimize_amp/).
+Out of the box, this starter will recognize the following custom front matter variables if they are defined:
 
-#### Fonts
+| Key                      | Type                                                                  | Description                                                                                                                                                                                                                                                                                                                      | Default                       |
+| ------------------------ | --------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------- |
+| `title`                  | `string`                                                              | Page-specific title. Used by meta title and social previews.                                                                                                                                                                                                                                                                     | `site.title`                  |
+| `description`            | `string`                                                              | Page-specific description. Used for meta description and social previews.                                                                                                                                                                                                                                                        | `site.description`            |
+| `keywords`               | `string[]`                                                            | Array of page-specific keywords. Used for meta keywords.                                                                                                                                                                                                                                                                         | `site.keywords`               |
+| `stylesheets`            | `string[]`                                                            | Array of `href`s to stylesheets needed by the current page. Must be root-relative paths to the final output files (e.g., `/assets/styles/**`—see example in `default.html`). If these files are not part of your Sass build pipeline, you are responsible for passthrough-copying them.                                          | `['/assets/styles/main.css']` |
+| `scripts`                | `string[]`                                                            | Array of module script `src`es to load. Must be root-relative paths to the final output files (e.g., `/assets/scripts/**`). You will need to output these yourself, either with passthrough copy or a bundler (esbuild, webpack, etc.). Note that module scripts are deferred by default and are safe to locate in the `<head>`. | `[]`                          |
+| `preloads`               | `{ as: string; type: string; href: string; crossorigin?: boolean }[]` | [Preload optimizations](https://developer.mozilla.org/en-US/docs/Web/HTML/Link_types/preload) for the current page.                                                                                                                                                                                                              | `[]`                          |
+| `openGraph.image`        | `string`                                                              | Path to a social preview image for the current page. If specified, the image will be used for the `og:image` and `twitter:image` meta tags.                                                                                                                                                                                      |                               |
+| `openGraph.type`         | `string`                                                              | The type of web page. For articles, consider using `"article"`.                                                                                                                                                                                                                                                                  | `"website"`                   |
+| `openGraph.title`        | `string`                                                              | An optional override for the OpenGraph preview title.                                                                                                                                                                                                                                                                            | Page title                    |
+| `openGraph.description`  | `string`                                                              | An optional override for the OpenGraph preview description.                                                                                                                                                                                                                                                                      | Page description              |
+| `openGraph.twitter.card` | `"summary" or "summary_large_image"`                                  | The type of [Twitter card](https://developer.twitter.com/en/docs/twitter-for-websites/cards/overview/abouts-cards) to use.                                                                                                                                                                                                       | `"summary"`                   |
+| `excludeFromSitemap`     | `boolean`                                                             | If `true`, excludes the current page from the sitemap. See `sitemap.liquid`.                                                                                                                                                                                                                                                     |                               |
+| `noindex`                | `boolean`                                                             | If `true`, adds a hint to the `<head>` to discourage search engine crawling for the page. Consider using this for tag pages and other auto-generated pages that have lots of duplicate content or content that you do not want to have indexed.                                                                                  |                               |
 
-- Serves fonts from same origin.
-- Makes fonts `display:optional`.
+## CSS (Sass)
 
-#### Analytics
+This starter uses Sass (SCSS) to process CSS. It is preconfigured to listen for changes to Sass partials and recompile them into a main stylesheet that is then included in [the default layout](./src/_layouts/default.html).
 
-- Supports locally serving Google Analytics's JS and proxying it's hit requests to a serverless function proxy (other proxies could be easily added).
-- Supports sending [Core Web Vitals](https://web.dev/vitals/) metrics to Google Analytics as [events](https://github.com/GoogleChrome/web-vitals#send-the-results-to-google-analytics).
-- Support for noscript hit requests.
-- Avoids blocking onload on analytics requests.
-- To turn this on, specify `googleAnalyticsId` in `metadata.json`. (Note, that this is not compatible with the not-yet-commonly used version 4 of Google Analytics.)
+By default, this project contains partials for:
 
-### DX features
+- Tokens
+- Mixins
+- Functions
 
-- Uses 🚨 as favicon during local development.
-- Supports a range of default tests.
-- Runs build and tests on `git push`.
-- Sourcemap generated for JS.
+You are free to add or delete any partials you need.
 
-### SEO & Social
+## Editor Settings
 
-- Share button preferring `navigator.share()` and falling back to Twitter. Using OS-like share-icon.
-- Support for OGP metadata.
-- Support for Twitter metadata.
-- Support for schema.org JSON-LD.
-- Sitemap.xml generation.
+See the [`.vscode`](./.vscode/) directory for configurations related to Visual Studio Code:
 
-### Largely useless glitter
+- [`settings.json`](./.vscode/settings.json): workspace settings.
+- [`extensions.json`](./vscode/extensions.json): recommended workspace extensions.
 
-- Read time estimate.
-- Animated scroll progress bar…
-- …with an optimized implementation that should never cause a layout.
+Feel free to delete this folder if you do not use VS Code.
 
-### Security
+## Linting
 
-Generates a strong [Content-Security-Policy (CSP)](https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP) using HTTP headers.
+This template supports linting out of the box for JavaScript and Sass to enable you to quickly prototype your site without worrying about syntax issues and formatting. It uses the following linters:
 
-- Default-src is self.
-- Disallows plugins.
-- Generates hash based CSP for the JS used on the site.
-- To extend the CSP with new rules, see [CSP.js](https://github.com/google/eleventy-high-performance-blog/blob/main/_data/csp.js#L22)
+- ESLint ([`.eslintrc.json`](./.eslintrc.json)) and Prettier ([`.prettierrc`](./.prettierrc))
+- Stylelint ([`.stylelintrc.json`](./.stylelintrc.json))
 
-### Build performance
+Relevant NPM packages:
 
-- Downloaded remote images, and generated sizes are cached in the local filesystem…
-- …and SHOULD be committed to git.
-- `.persistimages.sh` helps with this.
+- `eslint`
+- `prettier`
+- `eslint-config-prettier`
+- `eslint-plugin-prettier`
+- `stylelint`
+- `stylelint-scss`
+- `husky`
+- `lint-staged`
 
-## Disclaimer
-
-This is not an officially supported Google product, but rather [Malte's](https://twitter.com/cramforce) private best-effort open-source project.
+See [`.vscode/settings.json`](./.vscode/settings.json) for the auto-formatting rules (if you use VS Code).
