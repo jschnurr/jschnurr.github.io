@@ -5,16 +5,17 @@ jobs:
   build_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v3
       - uses: actions/setup-node@v3
         with:
-          node-version: '14'
+          node-version: '12'
+      - uses: actions/checkout@v3
       - name: Build
         uses: TartanLlama/actions-eleventy@v1.2
+        with:
+          install_dependencies: true
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           publish_dir: _site
           publish_branch: gh-pages
-          install_dependencies: true
           github_token: ${{ secrets.GITHUB_TOKEN }}
