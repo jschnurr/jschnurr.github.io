@@ -1,0 +1,17 @@
+---
+layout: default
+eleventyComputed:
+  preloads:
+    -
+      as: font
+      type: font/woff2
+      href: "{{ fonts.code.weights.medium.url }}"
+      crossorigin: true
+---
+
+<article class="post">
+  <h1>About Me</h1>
+  <div class="post-content rhythm">
+    {{ content }}
+  </div>
+</article>

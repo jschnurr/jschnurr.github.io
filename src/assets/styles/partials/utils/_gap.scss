@@ -1,0 +1,10 @@
+@import "../tokens";
+@import "../functions";
+
+$spacing-steps: get($tokens, "spacing", "steps");
+@each $step, $value in $spacing-steps {
+  /* stylelint-disable-next-line custom-property-pattern */
+  .gap-#{$step} {
+    gap: spacing($step);
+  }
+}

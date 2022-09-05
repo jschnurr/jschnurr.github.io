@@ -1,0 +1,33 @@
+@import "../functions";
+@import "../mixins";
+
+table {
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+caption {
+  text-align: start;
+  margin-bottom: spacing("-2");
+  color: var(--color-text-soft);
+  @include font($size: "sm");
+}
+
+th {
+  white-space: nowrap;
+}
+
+:is(td, th) {
+  text-align: start;
+  padding: spacing("-1");
+  border: solid 0.75px var(--color-border);
+
+  &.numeric {
+    text-align: end;
+  }
+}
+
+thead {
+  background-color: var(--color-surface-2);
+  color: var(--color-text-emphasis);
+}

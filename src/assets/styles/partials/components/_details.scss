@@ -1,0 +1,19 @@
+@import "../functions";
+
+details {
+  summary {
+    cursor: pointer;
+    background-color: var(--color-surface-2);
+    font-style: italic;
+  }
+
+  summary,
+  .details-content {
+    padding: spacing("2") spacing("3");
+    border: spacing("-4") solid var(--color-border);
+  }
+
+  .details-content {
+    border-top: none;
+  }
+}

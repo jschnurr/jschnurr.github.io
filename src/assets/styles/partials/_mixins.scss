@@ -1,0 +1,123 @@
+@use "sass:math";
+@use "sass:string";
+@use "sass:map";
+@use "sass:list";
+
+@import "./functions";
+
+@mixin full-bleed {
+  --offset: calc(-1 * var(--padding-x));
+  border-radius: 0;
+  margin-inline: var(--offset);
+  @include tablet {
+    margin-inline: 0;
+  }
+}
+
+// Inspiration: https://stackoverflow.com/a/49437769/5323344
+
+@mixin transition($props...) {
+  $result: ();
+  @for $i from 1 through length($props) {
+    $prop: list.nth($props, $i);
+    $result: list.append($result, $prop);
+    @if $i != length($props) {
+      $result: list.append(
+        $result,
+        string.unquote(
+          $string: ",",
+        )
+      );
+    }
+  }
+  transition-timing-function: var(--transition-timing-function);
+  transition-duration: var(--transition-duration);
+  transition-property: $result;
+}
+
+@mixin headings {
+  :is(h1,h2,h3,h4,h5,h6) {
+    @content;
+  }
+}
+
+/// Extends the font size utility class corresponding to the specified step.
+@mixin extended-font-size($step) {
+  /* stylelint-disable-next-line scss/at-extend-no-missing-placeholder */
+  @extend .#{get-custom-property-prefix("fontSize")}-#{$step};
+}
+
+@mixin font($size: null, $line-height: null, $family: null, $weight: null) {
+  @if not $size and not $line-height and not $family and not $weight {
+    @error "You must specify at least a font size, line height, or a font family + weight when using the font mixin.";
+  }
+  // Don't ever set family without a weight, and vice versa, since not all fonts have the same weights (in which case the inherited font weight may look weird)
+  @if $weight and not $family or $family and not $weight {
+    @error "Cannot set font family without a weight, and vice versa.";
+  }
+  // Font sizing
+  @if $size {
+    font-size: font-size($size);
+    @if not $line-height {
+      $line-height-step: get($tokens, "fontSize", "steps", $size, "leading");
+      @if $line-height-step {
+        line-height: leading($line-height-step);
+      }
+    }
+  }
+  // Line height
+  @if $line-height {
+    line-height: leading($line-height);
+  }
+  // Setting family and weight together
+  @if $family {
+    font-family: var(--ff-#{$family});
+    font-weight: var(--fw-#{$family}-#{$weight});
+  }
+}
+
+// Breakpoint mixins
+
+@mixin breakpoint($name) {
+  $bp: get($tokens, "breakpoints", $name);
+  $bp: math.div($bp, 16px) * 1em;
+  @media screen and (min-width: $bp) {
+    @content;
+  }
+}
+
+@mixin mobile {
+  @include breakpoint("mobile") {
+    @content;
+  }
+}
+
+@mixin mobile-lg {
+  @include breakpoint("mobile-lg") {
+    @content;
+  }
+}
+
+@mixin tablet-sm {
+  @include breakpoint("tablet-sm") {
+    @content;
+  }
+}
+
+@mixin tablet {
+  @include breakpoint("tablet") {
+    @content;
+  }
+}
+
+@mixin desktop {
+  @include breakpoint("desktop") {
+    @content;
+  }
+}
+
+@mixin desktop-lg {
+  @include breakpoint("desktop-lg") {
+    @content;
+  }
+}

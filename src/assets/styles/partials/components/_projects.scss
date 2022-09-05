@@ -1,0 +1,63 @@
+@import "../functions";
+@import "../mixins";
+
+.project {
+  &-wrapper {
+    --container-width: 50rem;
+
+    // Prevents the dreaded "doom flicker": https://www.joshwcomeau.com/animation/css-transitions/#doom-flicker
+    &:is(:hover, :focus-within) {
+      .project {
+        box-shadow: var(--card-box-shadow-focus);
+        transform: var(--card-offset-y-focus);
+      }
+    }
+  }
+
+  &-icon {
+    picture {
+      display: flex;
+      width: var(--fs-base);
+      aspect-ratio: 1;
+    }
+  }
+
+  &-link {
+    text-decoration: none;
+
+    &:is(:focus, :focus-visible) {
+      outline: none;
+    }
+
+    &::after {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+    }
+  }
+
+  &-description {
+    line-height: leading("xs");
+    margin-top: spacing("-1");
+  }
+
+  &-technologies {
+    margin-top: spacing("3");
+  }
+
+  &-technology {
+    border-radius: spacing("-4");
+    padding: spacing("-3") spacing("-1");
+  }
+}
+
+.github-cta {
+  svg {
+    width: spacing("8");
+    aspect-ratio: 1;
+    fill: currentcolor;
+  }
+}

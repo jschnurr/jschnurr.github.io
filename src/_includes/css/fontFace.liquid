@@ -1,0 +1,43 @@
+/* https://www.industrialempathy.com/perfect-ish-font-fallback/?font=Rubik */
+@font-face {
+  font-family: "Rubik-fallback";
+  size-adjust: 105%;
+  src: local("Arial");
+}
+@font-face {
+  font-family: "Bitter-fallback";
+  size-adjust: 114.5%;
+  src: local("Times New Roman");
+}
+{%- comment -%}Loop over the global font config and construct a series of @font-face declarations. We later feed this to scss to minify the output and inline it in the head for performance.{%- endcomment -%}
+{%- for fontType in requiredFonts -%}
+  {%- assign font = fonts[fontType] -%}
+  {%- comment -%}Don't generate @font-face declarations if explicitly disabled.{%- endcomment -%}
+  {%- if font.hasFontFace != false -%}
+    {%- comment -%}Variable fonts{%- endcomment -%}
+    {%- if font.isVariable -%}
+      @font-face {
+        font-family: "{{ font.family }}";
+        font-style: {{ font.style }};
+        font-weight: {{ font.variableWeights.min }} {{ font.variableWeights.max }};
+        {% if font.display -%}font-display: {{ font.display }};{%- endif -%}
+        src: local("{{ font.family }}"), local("{{ font.postscriptName }}"), url("{{ font.url }}") format("woff2 supports variations"), url("{{ font.url }}") format("woff2-variations");
+      }
+    {%- comment -%}Non-variable fonts{%- endcomment -%}
+    {%- else -%}
+      {%- assign weights = font.weights | values -%}
+      {%- for fontEntry in weights -%}
+        {%- if fontEntry.url -%}
+          {%- assign format = fontEntry.url | split: "." | last -%}
+          @font-face {
+            font-family: "{{ font.family }}";
+            font-style: {{ fontEntry.style }};
+            font-weight: {{ fontEntry.weight }};
+            {% if fontEntry.display -%}font-display: {{ fontEntry.display }};{%- endif -%}
+            src: local("{{ font.family }}"), local("{{ fontEntry.postscriptName }}"), url("{{ fontEntry.url }}") format("{{ format }}");
+          }
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endfor -%}

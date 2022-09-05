@@ -1,0 +1,27 @@
+@import "../functions";
+@import "../mixins";
+
+.home-page-hero {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: spacing("5");
+}
+
+.hero-hashart {
+  display: none;
+
+  @include desktop-lg {
+    display: unset;
+  }
+}
+
+.hash-art-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(#{spacing("8")}, #{spacing("10")}));
+  filter: grayscale(1);
+
+  > * {
+    aspect-ratio: 1;
+  }
+}

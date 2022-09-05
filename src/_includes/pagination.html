@@ -1,0 +1,15 @@
+<nav aria-label="Pages">
+  <ol class="pagination-trail pill-group">
+    {%- for href in hrefs -%}
+      <li>
+        <a
+          href="{{ href }}"
+          class="pill circle pagination-page"
+          {% if href == page.url %}aria-current="page"{% endif %}
+        >
+          {{- forloop.index -}}
+        </a>
+      </li>
+    {%- endfor -%}
+  </ol>
+</nav>

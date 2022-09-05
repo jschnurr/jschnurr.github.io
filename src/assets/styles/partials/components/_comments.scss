@@ -1,0 +1,42 @@
+@use "sass:math";
+
+@import "../mixins";
+
+.comment-actions {
+  margin-top: spacing("5");
+}
+
+.post-comment {
+  --avatar-size: #{spacing("5")};
+  --meta-spacing: #{spacing("-2")};
+  padding-inline-start: calc(var(--avatar-size) + var(--meta-spacing));
+
+  &-avatar {
+    align-self: flex-start;
+    position: absolute;
+    width: var(--avatar-size);
+    left: calc(-1 * var(--avatar-size) - var(--meta-spacing));
+  }
+
+  &-username {
+    @include font($family: "body", $weight: "bold");
+  }
+
+  &-edited {
+    font-style: italic;
+  }
+
+  &-author {
+    border-radius: spacing("-4");
+    padding: spacing("-3") spacing("-2");
+  }
+
+  &-body {
+    pre {
+      white-space: pre-wrap;
+    }
+    @include headings {
+      @include font($size: "base");
+    }
+  }
+}

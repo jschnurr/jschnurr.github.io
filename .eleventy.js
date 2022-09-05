@@ -1,27 +1,119 @@
-const { toISOString, toAbsoluteUrl } = require("./11ty/filters");
-const dir = require("./11ty/constants/dir");
-const imageShortcode = require("./11ty/shortcodes/image");
-const faviconShortcode = require("./11ty/shortcodes/favicon");
+const esbuild = require('esbuild');
+const path = require('path');
+const {
+  asideShortcode,
+  definitionShortcode,
+  imageShortcode,
+  iconShortcode,
+  socialIconShortcode,
+  quoteShortcode,
+  faviconShortcode,
+  nanoIdShortcode,
+  detailsShortcode,
+} = require('./config/shortcodes');
+const {
+  limit,
+  sortByKey,
+  toHtml,
+  where,
+  toISOString,
+  formatDate,
+  dividedBy,
+  toAbsoluteUrl,
+  getLatestCollectionItemDate,
+  cleanCSS,
+  toAbsoluteImageUrl,
+  pathParse,
+  pathJoin,
+  toUTCString,
+} = require('./config/filters/filters');
+const {
+  getAllPosts,
+  getAllUniqueCategories,
+  getPostsByCategory,
+  getPopularCategories,
+} = require('./config/collections');
+const markdownLib = require('./config/plugins/markdown');
+const { dir, imagePaths, scriptDirs } = require('./config/constants');
+const { slugifyString } = require('./config/utils');
+const { escape } = require('lodash');
 
-// Template language for the site: https://www.11ty.dev/docs/languages/liquid/
 const TEMPLATE_ENGINE = 'liquid';
 
 module.exports = (eleventyConfig) => {
+  eleventyConfig.setLiquidOptions({
+    // Allows for dynamic include/partial names. If true, include names must be quoted. Defaults to true as of beta/1.0.
+    dynamicPartials: true,
+  });
+
   // Watch targets
-  eleventyConfig.addWatchTarget(`${dir.input}/assets/styles`);
+  eleventyConfig.addWatchTarget(imagePaths.input);
+  eleventyConfig.addWatchTarget(scriptDirs.input);
+
+  // Pass-through copy for static assets
+  eleventyConfig.addPassthroughCopy(path.join(dir.input, dir.assets, 'fonts'));
+  eleventyConfig.addPassthroughCopy(path.join(imagePaths.input, '404'));
 
   // Custom shortcodes
+  eleventyConfig.addPairedShortcode('aside', asideShortcode);
+  eleventyConfig.addPairedShortcode('quote', quoteShortcode);
+  eleventyConfig.addPairedShortcode('definition', definitionShortcode);
+  eleventyConfig.addPairedShortcode('details', detailsShortcode);
   eleventyConfig.addShortcode('image', imageShortcode);
   eleventyConfig.addShortcode('favicon', faviconShortcode);
+  eleventyConfig.addShortcode('icon', iconShortcode);
+  eleventyConfig.addShortcode('socialIcon', socialIconShortcode);
+  eleventyConfig.addShortcode('nanoid', nanoIdShortcode);
 
   // Custom filters
-  eleventyConfig.addFilter('toAbsoluteUrl', toAbsoluteUrl);
+  eleventyConfig.addFilter('limit', limit);
+  eleventyConfig.addFilter('sortByKey', sortByKey);
+  eleventyConfig.addFilter('where', where);
+  eleventyConfig.addFilter('escape', escape);
+  eleventyConfig.addFilter('toHtml', toHtml);
   eleventyConfig.addFilter('toIsoString', toISOString);
+  eleventyConfig.addFilter('toUTCString', toUTCString);
+  eleventyConfig.addFilter('formatDate', formatDate);
+  eleventyConfig.addFilter('dividedBy', dividedBy);
+  eleventyConfig.addFilter('toAbsoluteUrl', toAbsoluteUrl);
+  eleventyConfig.addFilter('toAbsoluteImageUrl', toAbsoluteImageUrl);
+  eleventyConfig.addFilter('slugify', slugifyString);
   eleventyConfig.addFilter('toJson', JSON.stringify);
   eleventyConfig.addFilter('fromJson', JSON.parse);
+  eleventyConfig.addFilter('getLatestCollectionItemDate', getLatestCollectionItemDate);
+  eleventyConfig.addFilter('cleanCSS', cleanCSS);
   eleventyConfig.addFilter('keys', Object.keys);
   eleventyConfig.addFilter('values', Object.values);
   eleventyConfig.addFilter('entries', Object.entries);
+  eleventyConfig.addFilter('pathParse', pathParse);
+  eleventyConfig.addFilter('pathJoin', pathJoin);
+
+  // Custom collections
+  eleventyConfig.addCollection('posts', getAllPosts);
+  eleventyConfig.addCollection('categories', getAllUniqueCategories);
+  eleventyConfig.addCollection('postsByCategory', getPostsByCategory);
+  eleventyConfig.addCollection('popularCategories', getPopularCategories({ limit: 10, minCount: 5 }));
+
+  // Plugins
+  eleventyConfig.setLibrary('md', markdownLib);
+
+  // Post-processing
+  eleventyConfig.on('afterBuild', () => {
+    return esbuild.build({
+      entryPoints: [path.join(scriptDirs.input, 'index.mjs'), path.join(scriptDirs.input, 'demos/Carousel/index.mjs')],
+      entryNames: '[dir]/[name]',
+      outdir: scriptDirs.output,
+      format: 'esm',
+      outExtension: { '.js': '.mjs' },
+      bundle: true,
+      splitting: true,
+      minify: true,
+      sourcemap: process.env.ELEVENTY_ENV !== 'production',
+      loader: {
+        '.svg': 'text',
+      },
+    });
+  });
 
   return {
     dir,

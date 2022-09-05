@@ -1,0 +1,26 @@
+@import "../tokens";
+@import "../functions";
+
+$font-size-steps: get($tokens, "fontSize", "steps");
+$font-size-prefix: get-custom-property-prefix("fontSize");
+
+$leading-steps: get($tokens, "leading", "steps");
+$leading-prefix: get-custom-property-prefix("leading");
+
+$min-bp: get($tokens, "breakpoints", get($tokens, "fontSize", "breakpoints", "min"));
+$max-bp: get($tokens, "breakpoints", get($tokens, "fontSize", "breakpoints", "max"));
+
+html {
+  // Font size
+  @each $step, $step-config in $font-size-steps {
+    $min-px: get($step-config, "min");
+    $max-px: get($step-config, "max");
+    $font-size: clamped($min-px, $max-px, $min-bp, $max-bp);
+    /* stylelint-disable-next-line custom-property-pattern */
+    --#{$font-size-prefix}-#{$step}: #{$font-size};
+  }
+  // Line height
+  @each $step, $value in $leading-steps {
+    --#{$leading-prefix}-#{$step}: #{$value};
+  }
+}

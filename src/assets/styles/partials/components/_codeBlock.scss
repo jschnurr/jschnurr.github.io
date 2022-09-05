@@ -1,0 +1,158 @@
+/* stylelint-disable no-descending-specificity */
+@import "../functions";
+@import "../mixins";
+
+pre[class*="language-"] {
+  --code-block-padding: #{spacing("5")};
+  background: var(--color-code-background);
+  box-shadow: var(--shadow-code-block);
+  color: var(--color-code-text);
+  position: relative;
+
+  @include full-bleed;
+  @include tablet {
+    border-radius: spacing("-2");
+  }
+
+  &:hover {
+    .copy-code-button {
+      opacity: 1;
+    }
+  }
+
+  code {
+    padding: var(--code-block-padding);
+    text-align: start;
+    white-space: pre;
+    word-spacing: normal;
+    word-break: normal;
+    tab-size: 2;
+    line-height: leading("md");
+    overflow-x: auto;
+    display: block;
+
+    &[data-file] {
+      // File name
+      &::before {
+        content: "Filename: " attr(data-file);
+        display: block;
+        margin-bottom: calc(var(--code-block-padding) * 0.75);
+        color: var(--color-code-text);
+        @include font($family: "title", $weight: "bold", $size: "sm");
+      }
+    }
+  }
+
+  .namespace {
+    opacity: 0.7;
+  }
+
+  &::selection,
+  & *::selection {
+    text-shadow: none;
+    color: unset;
+    background: var(--color-code-selection);
+  }
+}
+
+.token {
+  &:is(.doctype, .doctype-tag) {
+    .name {
+      color: var(--color-code-attribute);
+    }
+  }
+
+  &.comment {
+    margin: 0;
+  }
+
+  &:is(.comment, .prolog) {
+    color: var(--color-code-comment);
+  }
+
+  &.number {
+    color: var(--color-code-constant);
+  }
+
+  &.script {
+    color: var(--color-code-text);
+  }
+
+  &.punctuation,
+  &.cdata {
+    color: var(--color-code-punctuation);
+  }
+
+  /* stylelint-disable-next-line max-line-length */
+  &:is(.keyword, .tag, .boolean, .constant, .inserted, .operator.arrow, .key.atrule, .rule, .keyword.module, .keyword.control-flow, .entity, .important, .punctuation.interpolation-punctuation, .doctype, .doctype-tag, .directive-hash),
+  &.atrule .url {
+    color: var(--color-code-keyword);
+  }
+
+  &:is(.selector, .string, .char, .builtin, .deleted, .regex, .attr-value),
+  &.attr-value &.punctuation {
+    color: var(--color-code-string);
+  }
+
+  &:is(.operator, .entity, .function),
+  &.atrule &.url &.punctuation,
+  &.attr-value &.punctuation.attr-equals,
+  &.function &.maybe-class-name {
+    color: var(--color-code-text);
+  }
+
+  &:is(.attr-name, .constant, .console, .property, .variable),
+  &.imports &.maybe-class-name,
+  &.exports &.maybe-class-name {
+    color: var(--color-code-attribute);
+  }
+
+  &.italic {
+    font-style: italic;
+  }
+}
+
+/* Language Specific */
+
+pre[class*="language-css"],
+pre[class*="language-scss"],
+pre[class*="language-sass"] {
+  .token.selector {
+    color: var(--color-code-selector);
+  }
+}
+
+pre[class*="language-bash"] {
+  .token:not(.comment) {
+    color: var(--color-code-text) !important;
+  }
+}
+
+.copy-code-button {
+  opacity: 0;
+  position: absolute;
+  right: var(--code-block-padding);
+  // For one-liners, cap to 50% from the top
+  /* stylelint-disable-next-line scss/no-global-function-names */
+  top: min(var(--code-block-padding) * 1.5, 50%);
+  transform: translateY(-50%);
+  display: none;
+  color: var(--color-code-text);
+  background-color: var(--color-code-overlay-1);
+  padding: spacing("-2") spacing("0");
+  border-radius: spacing("-3");
+  @include font($family: "body", $weight: "regular");
+
+  &:is(.copied, :focus) {
+    opacity: 1;
+  }
+
+  &:is(.copied, :hover) {
+    color: black;
+    background-color: var(--color-code-overlay-2);
+  }
+
+  @include tablet {
+    display: unset;
+  }
+}

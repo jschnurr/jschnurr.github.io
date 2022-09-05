@@ -1,0 +1,23 @@
+@import "../mixins";
+
+.float {
+  --spacing: #{spacing("2")};
+  float: none;
+  max-width: to-rems(160px);
+  margin-block-start: var(--line-height);
+  margin-block-end: var(--spacing);
+
+  &.left {
+    margin-inline-end: var(--spacing);
+    float: left;
+  }
+
+  &.right {
+    margin-inline-start: var(--spacing);
+    float: right;
+  }
+
+  @include mobile-lg {
+    max-width: to-rems(200px);
+  }
+}

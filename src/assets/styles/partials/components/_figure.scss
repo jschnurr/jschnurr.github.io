@@ -1,0 +1,23 @@
+@import "../mixins";
+
+figure {
+  gap: spacing("-2");
+  display: flex;
+  flex-direction: column;
+
+  img {
+    margin-inline: auto;
+  }
+}
+
+figcaption {
+  text-align: center;
+  @include font($size: "sm");
+}
+
+:is(figcaption, cite) {
+  &,
+  a {
+    color: var(--color-text-soft);
+  }
+}

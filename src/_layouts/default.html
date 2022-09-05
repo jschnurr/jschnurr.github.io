@@ -1,70 +1,38 @@
 ---
+layout: base
+defaultTheme: light
+criticalCSS:
+  - css/fontFace.liquid
+  - css/fontVariables.liquid
+  - css/criticalFontUsage.css
 stylesheets:
   - /assets/styles/main.css
+scripts:
+  - /assets/scripts/index.mjs
+requiredFonts:
+  - title
+  - body
+  - code
+eleventyComputed:
+  preloads:
+    -
+      as: style
+      type: text/css
+      href: /assets/styles/main.css
+    -
+      as: font
+      type: font/woff2
+      href: "{{ fonts.body.weights.regular.url }}"
+      crossorigin: true
+    -
+      as: font
+      type: font/woff2
+      href: "{{ fonts.title.url }}"
+      crossorigin: true
 ---
-{%- comment -%}Global variables for reuse in meta tags{%- endcomment -%}
-{%- if page.url == "/" -%}
-  {%- assign pageTitle = site.title -%}
-{%- else -%}
-  {%- comment -%}You could also use any other pipe character you want, like a hyphen or en/em dash{%- endcomment -%}
-  {%- assign pageTitle = title | default: renderData.title | append: " | " | append: site.title -%}
-{%- endif -%}
-{%- assign description = description | default: site.description -%}
-{%- assign keywords = keywords | default: site.keywords -%}
-{%- comment -%}Canonical URL. Make sure each page has one.{%- endcomment -%}
-{%- assign canonicalUrl = page.url | toAbsoluteUrl -%}
 
-<!DOCTYPE html>
-<html lang="{{ site.language }}">
-<head>
-  {%- comment -%}Must appear in the first 1024 bytes: https://web.dev/charset/{%- endcomment -%}
-  <meta charset="utf-8">
-  {%- comment -%}Metadata for search engines{%- endcomment -%}
-  <title>{{ pageTitle }}</title>
-  <meta name="description" content="{{ description }}">
-  <meta name="keywords" content="{{ keywords | join: ', ' }}">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="author" content="{{ site.author }}">
-  <link rel="canonical" href="{{ canonicalUrl }}">
-  {%- comment -%}Set noindex: true in front matter to prevent this page from showing up on search engines{%- endcomment -%}
-  {%- if noindex -%}
-    <meta name="robots" content="noindex">
-  {%- endif -%}
-  {%- comment -%}Global and page/layout-specific CSS{%- endcomment -%}
-  {%- for href in stylesheets -%}
-    <link rel="stylesheet" href="{{ href }}">
-  {%- endfor -%}
-  {%- comment -%}Template-specific module scripts, deferred by default{%- endcomment -%}
-  {%- for script in scripts -%}
-    <script type="module" src="{{ script }}"></script>
-  {%- endfor -%}
-  {%- comment -%}Favicons{%- endcomment -%}
-  {% favicon 'src/assets/images/favicon/favicon.png' %}
-  {%- comment -%}Open Graph meta tags{%- endcomment -%}
-  <meta property="og:title" content="{{ openGraph.title | default: pageTitle }}">
-  {%- if openGraph.image -%}
-    <meta property="og:image" content="{{ openGraph.image }}">
-  {%- endif -%}
-  <meta property="og:description" content="{{ openGraph.description | default: description }}">
-  <meta property="og:url" content="{{ page.url | toAbsoluteUrl }}">
-  <meta property="og:type" content="{{ openGraph.type | default: "website" }}">
-  <meta property="og:locale" content="{{ site.language | replace: "-", "_" }}">
-  {%- comment -%}Twitter card meta tags{%- endcomment -%}
-  <meta name="twitter:card" content="{{ openGraph.twitter.card | default: "summary" }}">
-  <meta name="twitter:title" content="{{ openGraph.title | default: pageTitle }}">
-  <meta name="twitter:description" content="{{ openGraph.description | default: description }}">
-  {%- if openGraph.image -%}
-    <meta name="twitter:image" content="{{ openGraph.image }}">
-  {%- endif -%}
-  {%- comment -%}Preload optimizations{%- endcomment -%}
-  {%- if preloads -%}
-  {% for preload in preloads %}
-    <link rel="preload" as="{{ preload.as }}" type="{{ preload.type }}" href="{{ preload.href }}" {% if preload.crossorigin %}crossorigin{% endif %}>
-  {%- endfor -%}
-  {% endif %}
-</head>
-<body>
-  {%- comment -%}You can add common layout components here if you want (e.g., site nav/footer){%- endcomment -%}
+{%- include "navbar.html" -%}
+<main id="page-content" class="container">
   {{ content }}
-</body>
-</html>
+</main>
+{%- include "footer.html" -%}

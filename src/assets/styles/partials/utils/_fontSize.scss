@@ -1,0 +1,39 @@
+@import "../mixins";
+
+$font-size-steps: get($tokens, "fontSize", "steps");
+$font-size-prefix: get-custom-property-prefix("fontSize");
+
+// Programmatically generate font size utility classes
+@each $step, $step-config in $font-size-steps {
+  .#{$font-size-prefix}-#{$step} {
+    @include font($size: $step);
+  }
+}
+
+h1 {
+  @include extended-font-size("3xl");
+}
+
+h2 {
+  @include extended-font-size("2xl");
+}
+
+h3 {
+  @include extended-font-size("xl");
+}
+
+h4 {
+  @include extended-font-size("lg");
+}
+
+h5 {
+  @include extended-font-size("md");
+}
+
+h6 {
+  @include extended-font-size("base");
+}
+
+small {
+  @include extended-font-size("sm");
+}

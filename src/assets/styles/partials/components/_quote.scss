@@ -1,0 +1,34 @@
+blockquote {
+  font-style: italic;
+  border-inline-start: spacing("-3") solid;
+  padding: spacing("-3") spacing("5");
+
+  @include tablet {
+    margin-inline-start: spacing("3");
+  }
+}
+
+cite {
+  display: block;
+
+  &::before {
+    content: "\2014";
+    user-select: none;
+  }
+}
+
+.quote {
+  > p {
+    &:first-of-type {
+      &::before {
+        content: open-quote;
+      }
+    }
+
+    &:last-of-type {
+      &::after {
+        content: close-quote;
+      }
+    }
+  }
+}

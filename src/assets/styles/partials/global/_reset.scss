@@ -1,0 +1,66 @@
+@import "../functions";
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+*,
+*::before,
+*::after {
+  @media (prefers-reduced-motion) {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+:where(html, body) {
+  height: 100%;
+}
+
+:where(label, input, textarea, button) {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+  letter-spacing: inherit;
+}
+
+// Responsive media with a width and height set in their HTML need this reset
+:where(img, video) {
+  height: auto;
+}
+
+:where(img, iframe, video) {
+  display: block;
+  max-width: 100%;
+}
+
+:where(button) {
+  border: none;
+  cursor: pointer;
+}
+
+:where(ul, ol) {
+  list-style: none;
+}
+
+:where(dfn) {
+  font-style: normal;
+}
+
+// https://css-tricks.com/standardizing-focus-styles-with-css-custom-properties/
+:where(a, button, input, textarea, summary, [tabindex="0"]) {
+  --outline-thickness: #{to-rems(3px)};
+  --outline-style: solid;
+  --outline-color: currentcolor;
+
+  &:focus {
+    outline: var(--outline-thickness) var(--outline-style) var(--outline-color);
+    outline-offset: var(--outline-offset, 0);
+
+    &:not(:focus-visible) {
+      outline: none;
+    }
+  }
+}

@@ -1,0 +1,47 @@
+@import "../mixins";
+
+.pill-group {
+  display: flex;
+  flex-wrap: wrap;
+  gap: spacing("-2");
+}
+
+.pill {
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  background-color: var(--color-surface-3);
+  color: var(--color-text-emphasis);
+  @include font($family: "code", $weight: "regular");
+
+  &[data-shape="round"] {
+    border-radius: spacing("8");
+  }
+
+  &[data-size="sm"] {
+    padding: spacing("-3") spacing("0");
+    @include font($size: "sm");
+  }
+
+  &[data-size="xs"] {
+    padding: spacing("-4") spacing("-1");
+    @include font($family: "code", $weight: "medium", $size: "xs");
+  }
+
+  &-count {
+    @include font($family: "code", $weight: "medium", $size: "xs");
+  }
+}
+
+// Because not all pills are links/interactive (see project cards)
+a.pill {
+  --color-focus-bg: var(--color-text-emphasis);
+
+  &:is(:focus, :hover, [aria-current="page"]) {
+    background-color: var(--color-focus-bg);
+    color: var(--color-text-inverted);
+  }
+
+  --outline-color: var(--color-focus-bg);
+  --outline-offset: var(--outline-thickness);
+}

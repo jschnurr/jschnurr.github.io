@@ -1,51 +1,80 @@
 {
-  "name": "jeffsidea",
-  "description": "Source for jeffsidea.com",
-  "version": "0.0.2",
-  "license": "MIT",
-  "author": "jschnurr",
+  "name": "jeffsidea.com",
+  "version": "1.0.0",
+  "license": "UNLICENSED",
+  "author": "jschnurr@gmail.com",
   "scripts": {
-    "clean": "rimraf _site",
-    "debug:html": "cross-env DEBUG=Eleventy* ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
-    "serve": "npm-run-all --parallel serve:*",
-    "serve:html": "cross-env ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=8080",
+    "clean:all": "rimraf _site",
+    "clean": "rimraf '_site/!(assets)' '_site/assets/!(images)'",
+    "debug": "DEBUG=Eleventy* ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=4001",
+    "serve": "npm-run-all clean --parallel serve:*",
+    "serve:html": "ELEVENTY_ENV=development npx @11ty/eleventy --serve --incremental --port=4001",
     "serve:css": "sass --watch src/assets/styles:_site/assets/styles --style=expanded",
-    "build": "run-s build:html build:css",
-    "build:html": "cross-env ELEVENTY_ENV=production npx @11ty/eleventy",
+    "build": "run-s test clean build:html build:css",
+    "build:html": "ELEVENTY_ENV=production npx @11ty/eleventy",
     "build:css": "sass src/assets/styles:_site/assets/styles --style=compressed",
     "lint": "npm-run-all lint:*",
     "lint:fix": "npm-run-all --parallel lint:*:fix",
     "lint:css": "stylelint \"src/**/*.scss\"",
     "lint:css:fix": "stylelint --fix \"src/**/*.scss\"",
     "lint:js": "eslint --cache \"**/*.js\"",
-    "lint:js:fix": "eslint --cache --fix \"**/*.js\""
+    "lint:js:fix": "eslint --cache --fix \"**/*.js\"",
+    "test": "NODE_OPTIONS='--experimental-vm-modules' jest --config jest.config.cjs",
+    "test:watch": "npm test --watch --silent=false --silent=false",
+    "update-browserslist": "npx browserslist@latest --update-db"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.5",
+    "sanitize-html": "^2.6.1"
   },
   "devDependencies": {
-    "@11ty/eleventy": "^1.0.2",
-    "@11ty/eleventy-img": "^2.0.1",
+    "@11ty/eleventy": "2.0.0-canary.10",
+    "@11ty/eleventy-cache-assets": "^2.3.0",
+    "@11ty/eleventy-img": "^1.0.0",
     "@11ty/eleventy-upgrade-help": "^1.0.1",
-    "cross-env": "^7.0.3",
-    "eslint": "^8.22.0",
+    "@iktakahiro/markdown-it-katex": "^4.0.1",
+    "@toycode/markdown-it-class": "^1.2.4",
+    "classnames": "^2.3.1",
+    "clean-css": "^5.3.1",
+    "esbuild": "^0.14.37",
+    "eslint": "^8.13.0",
     "eslint-config-prettier": "^8.5.0",
-    "eslint-plugin-prettier": "^4.2.1",
+    "eslint-plugin-prettier": "^4.0.0",
+    "feather-icons": "^4.28.0",
+    "fontkit": "^1.9.0",
     "husky": "^4.3.0",
-    "lint-staged": "^10.4.0",
+    "jest": "^27.5.1",
+    "lint-staged": "^12.1.7",
+    "lodash": "^4.17.21",
+    "markdown-it": "^12.0.6",
+    "markdown-it-anchor": "^8.0.3",
+    "markdown-it-attrs": "^4.1.3",
+    "markdown-it-link-attributes": "^3.0.0",
+    "markdown-it-prism": "^2.2.3",
+    "markdown-it-toc-done-right": "^4.2.0",
     "npm-run-all": "^4.1.5",
-    "prettier": "^2.7.1",
+    "prettier": "^2.6.2",
     "rimraf": "^3.0.2",
-    "sass": "^1.54.5",
-    "slugify": "^1.6.5",
-    "stylelint": "^14.10.0",
-    "stylelint-config-standard-scss": "^5.0.0"
+    "sass": "^1.50.1",
+    "simple-icons": "^6.3.0",
+    "slugify": "^1.5.3",
+    "stylelint": "^14.7.1",
+    "stylelint-config-standard-scss": "^3.0.0"
   },
+  "browserslist": [
+    "last 2 chrome versions",
+    "last 3 safari versions",
+    "last 2 firefox versions",
+    "last 2 edge versions"
+  ],
   "husky": {
     "hooks": {
       "pre-commit": "lint-staged",
-      "post-checkout": "yarn"
+      "post-checkout": "npm"
     }
   },
   "lint-staged": {
-    "*.js": "yarn run lint:js:fix",
-    "*.scss": "yarn run lint:css:fix"
+    "*.js": "npm run lint:js:fix",
+    "*.scss": "npm run lint:css:fix"
   }
 }

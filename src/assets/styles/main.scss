@@ -1,1 +1,11 @@
-@use "global/reset";
+@import "partials/tokens/animation";
+@import "partials/tokens/color";
+@import "partials/tokens/spacing";
+@import "partials/tokens/typography";
+
+@import "partials/global/reset";
+@import "partials/global/global";
+
+@import "partials/utils/utils";
+@import "partials/components/components";
+@import "partials/pages/pages";

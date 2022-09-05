@@ -1,0 +1,13 @@
+@import "../mixins";
+
+.pagination {
+  &-trail {
+    justify-content: flex-end;
+  }
+
+  &-page {
+    min-width: spacing("6");
+    justify-content: center;
+    @include font($family: "code", $weight: "medium");
+  }
+}

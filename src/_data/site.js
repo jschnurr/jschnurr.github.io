@@ -1,6 +1,7 @@
 const environmentSpecificVariables = {
   development: {
-    url: 'http://localhost:8080',
+    // FIXME: don't hardcode port
+    url: 'http://localhost:4001',
   },
   production: {
     url: 'https://jeffsidea.com',
@@ -11,12 +12,12 @@ module.exports = {
   title: '@jeffsidea',
   author: 'Jeff Schnurr',
   email: 'jschnurr@gmail.com',
-  description: 'Innovation, technology and code.',
-  keywords: [],
-  language: 'en-US',
-  favicon: {
-    widths: [32, 57, 76, 96, 128, 192, 228],
-    format: 'png',
+  description: 'A blog about cloud, code and innovation at enterprise scale.',
+  keywords: ['Jeff Schnurr'],
+  lang: 'en-US',
+  pagination: {
+    itemsPerPage: 21,
   },
+  disqusShortname: 'jeffsidea',
   ...environmentSpecificVariables[process.env.ELEVENTY_ENV],
 };
