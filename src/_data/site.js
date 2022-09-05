@@ -19,5 +19,6 @@ module.exports = {
     itemsPerPage: 21,
   },
   disqusShortname: 'jeffsidea',
+  gtag: 'UA-19292326-1',
   ...environmentSpecificVariables[process.env.ELEVENTY_ENV],
 };

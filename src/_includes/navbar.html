@@ -11,7 +11,9 @@
         <li class="navbar-item home">
           <a class="navbar-link" href="/" {% if permalink == "/" %}aria-current="page"{% endif %}>Home</a>
         </li>
-        {%- assign navLinks = "About,Blog" | split: ',' -%}
+        <!-- {%- assign navLinks = "About,Blog" | split: ',' -%} -->
+        <!-- FIXME add about page -->
+        {%- assign navLinks = "Blog" | split: ',' -%}
         {%- for link in navLinks -%}
         <li class="navbar-item">
           {%- assign href = link | downcase | prepend: "/" | append: "/" -%}
@@ -40,3 +42,13 @@
     </div>
   </div>
 </header>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-19292326-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', '{{ site.gtag }}');
+</script>
