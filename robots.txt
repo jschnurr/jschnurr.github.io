@@ -1,0 +1,5 @@
+User-agent: *
+Disallow: /tags/
+Disallow: /404.html
+Disallow: /googlee2ec0427acbadbba.html
+Sitemap: https://jeffsidea.com/sitemap.xml

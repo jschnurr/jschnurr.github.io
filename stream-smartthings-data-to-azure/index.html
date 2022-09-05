@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="en-US" data-theme="light">
+<head>
+  <meta charset="utf-8"><title>Stream SmartThings data to Azure | @jeffsidea</title>
+  <meta name="description" content="Store and analyze events from your smart devices and sensors in the cloud">
+  <meta name="keywords" content="Jeff Schnurr">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Jeff Schnurr">
+  <link rel="canonical" href="https://jeffsidea.com/stream-smartthings-data-to-azure/"><style>@font-face{font-family:Rubik-fallback;size-adjust:105%;src:local("Arial")}@font-face{font-family:Bitter-fallback;size-adjust:114.5%;src:local("Times New Roman")}@font-face{font-family:Bitter;font-style:normal;font-weight:100 900;font-display:swap;src:local("Bitter"),local("Bitter-Thin"),url("/assets/fonts/bitter-variable.woff2") format("woff2 supports variations"),url("/assets/fonts/bitter-variable.woff2") format("woff2-variations")}@font-face{font-family:Rubik;font-style:normal;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Regular"),url("/assets/fonts/rubik-400.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:italic;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Italic"),url("/assets/fonts/rubik-italic.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:normal;font-weight:700;font-display:swap;src:local("Rubik"),local("Rubik-Bold"),url("/assets/fonts/rubik-700.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Regular"),url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Medium"),url("/assets/fonts/ibm-plex-mono-500.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:700;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Bold"),url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2")}html{--ff-title:Bitter,Bitter-fallback;--fw-title-regular:400;--fw-title-bold:750;--ff-body:Rubik,Rubik-fallback;--fw-body-regular:400;--fw-body-bold:700;--ff-code:IBM Plex Mono,Monaco,Consolas,Courier New,monospace;--fw-code-regular:400;--fw-code-medium:500;--fw-code-bold:700}body{font-family:var(--ff-body)}h1,h2,h3,h4,h5,h6{font-family:var(--ff-title)}code{font-family:var(--ff-code)}</style><link rel="stylesheet" href="/assets/styles/main.css"><link href="/assets/images/favicons/favicon-16.png" rel="icon" sizes="16x16">
+<link href="/assets/images/favicons/favicon-32.png" rel="icon" sizes="32x32">
+<link href="/assets/images/favicons/favicon-57.png" rel="icon" sizes="57x57">
+<link href="/assets/images/favicons/favicon-76.png" rel="icon" sizes="76x76">
+<link href="/assets/images/favicons/favicon-96.png" rel="icon" sizes="96x96">
+<link href="/assets/images/favicons/favicon-128.png" rel="icon" sizes="128x128">
+<link href="/assets/images/favicons/favicon-180.png" rel="apple-touch-icon">
+<link href="/assets/images/favicons/favicon-192.png" rel="icon" sizes="192x192">
+<link href="/assets/images/favicons/favicon-228.png" rel="icon" sizes="228x228"><script>
+        (function() {
+        const cachedTheme = localStorage.getItem('theme');
+        if (cachedTheme) {
+            document.documentElement.dataset.theme = cachedTheme;
+        } else {
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.dataset.theme = preferredTheme;
+        }
+        })();
+    </script><script type="module" src="/assets/scripts/index.mjs"></script><meta property="og:title" content="Stream SmartThings data to Azure | @jeffsidea"><meta property="og:description" content="Store and analyze events from your smart devices and sensors in the cloud">
+  <meta property="og:url" content="https://jeffsidea.com/stream-smartthings-data-to-azure/">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@jeffsidea">
+  <meta name="twitter:title" content="Stream SmartThings data to Azure | @jeffsidea">
+  <meta name="twitter:description" content="Store and analyze events from your smart devices and sensors in the cloud">
+      <link rel="preload" as="style" type="text/css" href="/assets/styles/main.css" >
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/rubik-400.woff2" crossorigin>
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bitter-variable.woff2" crossorigin>
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/ibm-plex-mono-500.woff2" crossorigin><link rel="alternate" type="application/rss+xml" title="RSS Feed for jeffsidea.com" href="/feed.xml" /><noscript><style>#theme-toggle,.youtube-embed{display:none;}</style></noscript><meta name="generator" content="Eleventy v2.0.0"></head>
+<body>
+  <header class="navbar-header flex align-center">
+  <div class="container flex align-center gap-0">
+    <nav class="navbar flex align-center justify-between gap--2 fs-sm" aria-label="Primary">
+      <a href="#page-content" class="screen-reader-only skip-navigation">Skip to content</a>
+      <a class="navbar-branding outline-offset" href="/" aria-label="Home page" >
+        <img src="/assets/images/favicons/favicon-128.png" class="navbar-logo circle" alt="" />
+        <span class="navbar-site-name">@jeffsidea</span>
+      </a>
+      <ul class="navbar-links flex align-center"><li class="navbar-item home">
+          <a class="navbar-link" href="/" >Home</a>
+        </li><li class="navbar-item"><a
+            class="navbar-link"
+            href="/about/"
+            >About</a>
+        </li><li class="navbar-item"><a
+            class="navbar-link"
+            href="/blog/"
+            aria-current="page">Blog</a>
+        </li></ul>
+    </nav>
+    <div>
+      <button id="theme-toggle" class="lamp" aria-label="Enable dark mode theme" aria-pressed="false" type="button">
+        <span class="lamp-base"></span>
+        <span class="lamp-neck"></span>
+        <span class="lamp-head"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="page-content" class="container">
+  
+<article class="post stack gap-6">
+  <header class="post-header">
+      <dl class="post-date inline-list">
+        <div>
+          <dt class="screen-reader-only">Published</dt>
+          <dd><time datetime="2020-08-30" >Aug 30, 2020</time>
+</dd>
+        </div>
+        
+      </dl>
+    <h1 class="post-title">Stream SmartThings data to Azure</h1>
+    <ul class="post-tags flex flex-wrap gap--2" aria-label="Tags"><li>
+          <a href="/tags/smarthome/" class="post-tag" aria-label="smarthome">smarthome</a>
+        </li><li>
+          <a href="/tags/cloud/" class="post-tag" aria-label="cloud">cloud</a>
+        </li></ul>
+  </header>
+  <div class="post-content rhythm">
+    <p><img src="https://images.unsplash.com/photo-1558346490-a72e53ae2d4f?ixlib=rb-1.2.1&amp;q=80&amp;fm=jpg&amp;crop=entropy&amp;cs=tinysrgb&amp;fit=max&amp;ixid=eyJhcHBfaWQiOjExNzczfQ&amp;w=1000" alt="image"></p>
+<p>My home has over 70 smart devices, including switches, lights, contact sensors, motion sensors, thermostats and various controllers.  They come from various vendors using myriad technologies, including a cool kit from <a href="%22https://konnected.io/%22">Konnected</a> that helped me give my old alarm system a smarthome upgrade.</p>
+<p>The platform that brings these devices together is Samsung SmartThings.  It renders each device as its digital twin, abstracting away the messiness of different vendors, protocols, hubs, clouds, apps - into one simple pane of glass.  Behind the scenes, a real-time platform maintains state and responds to events, generating real-time data about the state of your home.  It’s consumer grade IOT.</p>
+<p>My objective was to capture this event stream and store it for analysis, using the Azure platform. High level, the architecture looks like this:</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/URjYQNeHaJ-1370.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/URjYQNeHaJ-400.webp 400w, /assets/images/URjYQNeHaJ-800.webp 800w, /assets/images/URjYQNeHaJ-1370.webp 1370w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/URjYQNeHaJ-400.jpeg 400w, /assets/images/URjYQNeHaJ-800.jpeg 800w, /assets/images/URjYQNeHaJ-1370.jpeg 1370w" sizes="100vw">
+    <img width="1370" height="400" src="/assets/images/URjYQNeHaJ-1370.jpeg" alt="Solution architecture diagram."  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >High level architecture</figcaption></figure>
+<p>The solution involves 4 components:</p>
+<ol class="list">
+<li>A <a href="%22https://smartthings.developer.samsung.com/docs/smartapps/smartapp-basics.html%22">SmartApp</a>, running in the Smartthings cloud, which would listen to and react to all events.</li>
+<li>An <a href="%22https://docs.microsoft.com/en-us/azure/storage/queues/storage-queues-introduction%22">Azure Storage Queue</a>, where the SmartApp could deposit events as they happened.</li>
+<li>An <a href="%22https://docs.microsoft.com/en-us/azure/azure-functions/functions-overview%22">Azure Function</a> that is triggered by new queue entries, and can run some code to process the event.</li>
+<li>An <a href="%22https://docs.microsoft.com/en-us/azure/cosmos-db/introduction%22">Azure Cosmos DB database</a>, to permanently store the events and provide a platform for query and reporting later.</li>
+</ol>
+<p>To build this, let’s start by creating the Azure resources.</p>
+<h2 id="create-the-azure-resources"><a class="to-underline" href="#create-the-azure-resources">Create the Azure Resources</a></h2>
+<p>Each of the following commands assume you’re using a bash-like shell, and the <a href="%22https://docs.microsoft.com/en-us/cli/azure/?view=azure-cli-latest%22">Azure CLI</a>.</p>
+<p>Let’s begin by settings some variables. Most of the defaults are fine, but please pay extra attention to these:</p>
+<ul class="list">
+<li><strong>resourceGroupName</strong>: the name of the resource group. To keep everything together, suggest creating a new one called <em>smartthings</em> or similar.</li>
+<li><strong>storageName</strong>: storage account name; must be globally unique.</li>
+<li><strong>region</strong>: the location to host the resources. Run <code>az account list-locations --query '[].name'</code> for an updated list.</li>
+<li><strong>cosmosFreeTier</strong>: Azure has a Cosmos <a href="%22https://docs.microsoft.com/en-ca/azure/cosmos-db/optimize-dev-test#azure-cosmos-db-free-tier%22">free tier</a>, but you only get one. If this is your first CosmosDB, set this to <code>true</code>.</li>
+</ul>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># User Settings</span>
+<span class="token assign-left variable">resourceGroupName</span><span class="token operator">=</span>smartthings
+<span class="token assign-left variable">storageName</span><span class="token operator">=</span>ststorageaccount<span class="token environment constant">$RANDOM</span>
+<span class="token assign-left variable">storageQueueName</span><span class="token operator">=</span>stevents
+<span class="token assign-left variable">functionAppName</span><span class="token operator">=</span>qtocosmos<span class="token environment constant">$RANDOM</span>
+<span class="token assign-left variable">region</span><span class="token operator">=</span>canadacentral
+<span class="token assign-left variable">cosmosAccountName</span><span class="token operator">=</span>cosmos<span class="token environment constant">$RANDOM</span>
+<span class="token assign-left variable">cosmosDBName</span><span class="token operator">=</span>smarthome
+<span class="token assign-left variable">cosmosContainer</span><span class="token operator">=</span>stevents
+<span class="token assign-left variable">cosmosFreeTier</span><span class="token operator">=</span>false <span class="token comment"># if this is your first cosmos DB, set to true</span>
+</code></pre>
+<p>In Azure, resources belong to a <em>resource group</em>, so let’s create that first.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create a resource group.</span>
+az group create <span class="token parameter variable">--name</span> <span class="token variable">$resourceGroupName</span> <span class="token parameter variable">--location</span> <span class="token variable">$region</span>
+</code></pre>
+<p>Our first resource is a storage account. We use the <em>Standard_LRS</em> sku for locally redundant data storage.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create an Azure storage account in the resource group.</span>
+az storage account create <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$storageName</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--location</span> <span class="token variable">$region</span> <span class="token punctuation">\</span>
+    --resource-group <span class="token variable">$resourceGroupName</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--sku</span> Standard_LRS
+</code></pre>
+<p>Commands further on will require access to the storage account. To facilitate that, let’s extract the connection string and store it in a variable for re-use.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Save the connection string for use later</span>
+<span class="token assign-left variable">storageConnectionString</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>az storage account show-connection-string <span class="token punctuation">\</span>
+    --resource-group $resourceGroupName <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> $storageName <span class="token punctuation">\</span>
+    <span class="token parameter variable">--query</span> connectionString <span class="token punctuation">\</span>
+    <span class="token parameter variable">--output</span> tsv<span class="token variable">)</span></span>
+</code></pre>
+<p>The storage queue exists inside the storage account itself, and is designed to allow asynchronous event handling. As events are submitted to the queue, they’re held there until another resource (our function) dequeues and processes them.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create a storage queue to receive smartthings events</span>
+az storage queue create <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$storageQueueName</span> <span class="token punctuation">\</span>
+    --account-name <span class="token variable">$storageName</span> <span class="token punctuation">\</span>
+    --connection-string <span class="token variable">$storageConnectionString</span>
+</code></pre>
+<p>SAS tokens are used to provide access to storage account resources outside Azure. In our case, the Smartthings platform will be using it to submit events to the queue. We create it with a long expiry (2099), and permissions to only (<strong>a</strong>)dd to the queue using <em>https</em>. The token is stored in a variable for output at the end of our build.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create a SAS token to adding to the queue</span>
+<span class="token assign-left variable">SASToken</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>az storage queue generate-sas <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> $storageQueueName <span class="token punctuation">\</span>
+    --account-name $storageName <span class="token punctuation">\</span>
+    --connection-string $storageConnectionString <span class="token punctuation">\</span>
+    <span class="token parameter variable">--expiry</span> <span class="token number">2099</span>-01-01T00:00:00Z <span class="token punctuation">\</span>
+    --https-only <span class="token punctuation">\</span>
+    <span class="token parameter variable">--permissions</span> a <span class="token punctuation">\</span>
+    <span class="token parameter variable">--output</span> tsv<span class="token variable">)</span></span>
+</code></pre>
+<p>Next up is the CosmosDB account. We’ll choose the SQL API format, as it’s universally understood and our data is structured with the same fields present in each record.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create a Cosmos account for SQL API</span>
+az cosmosdb create <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$cosmosAccountName</span> <span class="token punctuation">\</span>
+    --resource-group <span class="token variable">$resourceGroupName</span> <span class="token punctuation">\</span>
+    --enable-free-tier <span class="token variable">$cosmosFreeTier</span>
+</code></pre>
+<p>Later we’ll be asking our function app to submit to Cosmos, and it will need a connection string to authenticate. Let’s save it in a variable for now.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Save the connection string for use later</span>
+<span class="token assign-left variable">cosmosDBConnection</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span>az cosmosdb keys list <span class="token punctuation">\</span>
+    <span class="token parameter variable">--type</span> connection-strings <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> $cosmosAccountName <span class="token punctuation">\</span>
+    --resource-group $resourceGroupName <span class="token punctuation">\</span>
+    <span class="token parameter variable">--query</span> <span class="token string">"connectionStrings[0].connectionString"</span> <span class="token parameter variable">--output</span> tsv<span class="token variable">)</span></span>
+</code></pre>
+<p>Create the database itself, inside the CosmosDB account.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create a SQL API database</span>
+az cosmosdb sql database create <span class="token punctuation">\</span>
+    --account-name <span class="token variable">$cosmosAccountName</span> <span class="token punctuation">\</span>
+    --resource-group <span class="token variable">$resourceGroupName</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$cosmosDBName</span>
+</code></pre>
+<p>Next we create our function app. For now, this is just an empty container - it doesn’t contain any code - since we haven’t deployed yet.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Create a function app</span>
+az functionapp create <span class="token punctuation">\</span>
+    --functions-version <span class="token number">3</span> <span class="token punctuation">\</span>
+    --resource-group <span class="token variable">$resourceGroupName</span> <span class="token punctuation">\</span>
+    --consumption-plan-location <span class="token variable">$region</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--runtime</span> <span class="token function">node</span> <span class="token punctuation">\</span>
+    --runtime-version <span class="token number">12</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$functionAppName</span> <span class="token punctuation">\</span>
+    --storage-account <span class="token variable">$storageName</span>
+</code></pre>
+<p>Function apps support <em>application settings</em>, which are variables stored by the platform and available to apps at runtime. As our function app will be inserting rows into CosmosDB, we’ll need to provide the connection, database and container information it needs.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Set function app settings</span>
+az functionapp config appsettings <span class="token builtin class-name">set</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$functionAppName</span> <span class="token punctuation">\</span>
+    --resource-group <span class="token variable">$resourceGroupName</span> <span class="token punctuation">\</span>
+    <span class="token parameter variable">--settings</span> <span class="token assign-left variable">ST_QUEUENAME</span><span class="token operator">=</span><span class="token variable">$storageQueueName</span> <span class="token punctuation">\</span>
+                <span class="token assign-left variable">CosmosDBConnection</span><span class="token operator">=</span><span class="token variable">$cosmosDBConnection</span> <span class="token punctuation">\</span>
+                <span class="token assign-left variable">CosmosDBName</span><span class="token operator">=</span><span class="token variable">$cosmosDBName</span> <span class="token punctuation">\</span>
+                <span class="token assign-left variable">CosmosContainer</span><span class="token operator">=</span><span class="token variable">$cosmosContainer</span>
+</code></pre>
+<p>Let’s deploy the function code itself. This is a small bit of NodeJS code which accepts the incoming dequeued message (a Smartthings event), and inserts it as a row into CosmosDB.</p>
+<p>The code is located in my <a href="%22https://github.com/jschnurr/az-smartthings-logger%22">repo</a>, in the <code>azurefunction</code> directory. It contains 2 files - <code>function.json</code> describing the input and output bindings (how it will be triggered, and what to do with the output), and <code>index.js</code>, which has the Javascript code for the function itself.</p>
+<p>The deploy process will pull the code from the repo based on the <em>repo-url</em> parameter. <em>manual-integration</em> means we’re only copying this code one-time; if the repo changes, your copy won’t change.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Add a function to move queue messages to Cosmos</span>
+az functionapp deployment <span class="token builtin class-name">source</span> config <span class="token punctuation">\</span>
+    <span class="token parameter variable">--name</span> <span class="token variable">$functionAppName</span> <span class="token punctuation">\</span>
+    --resource-group <span class="token variable">$resourceGroupName</span> <span class="token punctuation">\</span>
+    --repo-url https://github.com/jschnurr/az-smartthings-logger <span class="token punctuation">\</span>
+    --manual-integration
+</code></pre>
+<hr>
+<p>Congratulations! Your Azure environment is all set-up and ready to go.</p>
+<p>Let’s test it out! Push a message onto the storage queue, and then pop into the <a href="%22https://portal.azure.com/#home%22">Azure Portal</a> to see the message in CosmosDB!</p>
+<pre class="language-shell"><code class="language-shell">    <span class="token comment"># Test it out! Put a message on storage queue, should end up in Cosmos</span>
+    <span class="token assign-left variable">testtext</span><span class="token operator">=</span><span class="token variable"><span class="token variable">$(</span><span class="token builtin class-name">echo</span> <span class="token string">"{<span class="token entity" title="\&quot;">\"</span>test<span class="token entity" title="\&quot;">\"</span>:<span class="token entity" title="\&quot;">\"</span>test<span class="token entity" title="\&quot;">\"</span>}"</span> <span class="token operator">|</span> base64<span class="token variable">)</span></span>
+    az storage message put <span class="token punctuation">\</span>
+      <span class="token parameter variable">--content</span> <span class="token variable">$testtext</span> <span class="token punctuation">\</span>
+      --queue-name <span class="token variable">$storageQueueName</span> <span class="token punctuation">\</span>
+      --account-name <span class="token variable">$storageName</span> <span class="token punctuation">\</span>
+      --connection-string <span class="token variable">$storageConnectionString</span>
+</code></pre>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/eC5XOS45Wf-1714.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/eC5XOS45Wf-400.webp 400w, /assets/images/eC5XOS45Wf-800.webp 800w, /assets/images/eC5XOS45Wf-1714.webp 1714w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/eC5XOS45Wf-400.jpeg 400w, /assets/images/eC5XOS45Wf-800.jpeg 800w, /assets/images/eC5XOS45Wf-1714.jpeg 1714w" sizes="100vw">
+    <img width="1714" height="525" src="/assets/images/eC5XOS45Wf-1714.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Test message as viewed in CosmosDB, after being processed by our pipeline.</figcaption></figure>
+<p>Lastly, there is some information you’ll need for the next step. Save this information before closing your terminal.</p>
+<pre class="language-shell"><code class="language-shell"><span class="token comment"># Output required settings for the Smartthings SmartApp</span>
+<span class="token builtin class-name">echo</span> <span class="token parameter variable">-e</span> <span class="token string">"<span class="token entity" title="\n">\n</span><span class="token entity" title="\n">\n</span>-------------------<span class="token entity" title="\n">\n</span>SMARTTHINGS SETTINGS:<span class="token entity" title="\n">\n</span> \
+  Queue: <span class="token variable">$storageQueueName</span><span class="token entity" title="\n">\n</span> \
+  SASToken: <span class="token variable">$SASToken</span><span class="token entity" title="\n">\n</span> \
+  StorageAccount: <span class="token variable">$storageName</span> \
+  <span class="token entity" title="\n">\n</span><span class="token entity" title="\n">\n</span>"</span>
+</code></pre>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/acnFlf2_dy-1111.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/acnFlf2_dy-400.webp 400w, /assets/images/acnFlf2_dy-800.webp 800w, /assets/images/acnFlf2_dy-1111.webp 1111w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/acnFlf2_dy-400.jpeg 400w, /assets/images/acnFlf2_dy-800.jpeg 800w, /assets/images/acnFlf2_dy-1111.jpeg 1111w" sizes="100vw">
+    <img width="1111" height="104" src="/assets/images/acnFlf2_dy-1111.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" ></figcaption></figure>
+<p>Save this - you’ll need it to configure Smartthings.</p>
+<hr>
+<h2 id="create-the-smartapp"><a class="to-underline" href="#create-the-smartapp">Create the SmartApp</a></h2>
+<p>The following instructions borrow heavily from <a href="%22https://samcogan.com/stream-smartthings-data-to-cosmos-db-and-powerbi/%22">Sam Cogan</a>.</p>
+<p>There are 4 steps required:</p>
+<ol class="list">
+<li>Add my <a href="%22https://github.com/jschnurr/az-smartthings-logger%22">repo</a> to <em>My SmartApps</em> dashboard on <a href="%22https://account.smartthings.com/%22">account.smartthings.com</a>. This makes the repo available in <em>Update from Repo</em> as a source.</li>
+<li>Use <em>Update from Repo</em> to select the <code>st-queue.groovy</code> file, and <em>Execute Update</em> with <em>Publish</em> checked to import the code and create a new SmartApp.</li>
+<li>Configure the <em>App Settings</em> to point to the Azure storage queue.</li>
+<li>Add the SmartApp to the Smartthings mobile app, and authorize it to receive data.</li>
+</ol>
+<h3 id="add-the-repo"><a class="to-underline" href="#add-the-repo">Add the repo</a></h3>
+<p>Navigate to the Smartthings web-based IDE at <a href="%22https://account.smartthings.com%22">https://account.smartthings.com</a> and log in with your Samsung credentials.</p>
+<p>Click on settings:</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/KGFh_2gUSK-1124.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/KGFh_2gUSK-400.webp 400w, /assets/images/KGFh_2gUSK-800.webp 800w, /assets/images/KGFh_2gUSK-1124.webp 1124w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/KGFh_2gUSK-400.jpeg 400w, /assets/images/KGFh_2gUSK-800.jpeg 800w, /assets/images/KGFh_2gUSK-1124.jpeg 1124w" sizes="100vw">
+    <img width="1124" height="132" src="/assets/images/KGFh_2gUSK-1124.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Settings in the Smartthings IDE</figcaption></figure>
+<p>Add a Github repository:</p>
+<ul class="list">
+<li>Owner: <code>jschnurr</code></li>
+<li>Name: <code>az-smartthings-logger</code></li>
+<li>Branch: <code>master</code></li>
+</ul>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/vs9A3AaAjH-734.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/vs9A3AaAjH-400.webp 400w, /assets/images/vs9A3AaAjH-734.webp 734w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/vs9A3AaAjH-400.jpeg 400w, /assets/images/vs9A3AaAjH-734.jpeg 734w" sizes="100vw">
+    <img width="734" height="50" src="/assets/images/vs9A3AaAjH-734.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Add Github Repo</figcaption></figure>
+<h3 id="update-from-repo"><a class="to-underline" href="#update-from-repo">Update from Repo</a></h3>
+<p>Select the <em>Update from Repo</em> button, and choose the <code>az-smartthings-logger</code> repo we just added.</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/DiIyaZiluS-672.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/DiIyaZiluS-400.webp 400w, /assets/images/DiIyaZiluS-672.webp 672w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/DiIyaZiluS-400.jpeg 400w, /assets/images/DiIyaZiluS-672.jpeg 672w" sizes="100vw">
+    <img width="672" height="234" src="/assets/images/DiIyaZiluS-672.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Update from repo menu</figcaption></figure>
+<p>In the resulting screen, you’ll be prompted to create a new SmartApp based on the repo. Select `jschnurr:ST-Queue under <em>New (only in GitHub)</em>, check <em>Publish</em>, and click <em>Execute Update</em>.</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/Y9_Dhf1P0_-1418.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/Y9_Dhf1P0_-400.webp 400w, /assets/images/Y9_Dhf1P0_-800.webp 800w, /assets/images/Y9_Dhf1P0_-1418.webp 1418w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/Y9_Dhf1P0_-400.jpeg 400w, /assets/images/Y9_Dhf1P0_-800.jpeg 800w, /assets/images/Y9_Dhf1P0_-1418.jpeg 1418w" sizes="100vw">
+    <img width="1418" height="670" src="/assets/images/Y9_Dhf1P0_-1418.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Update from repo</figcaption></figure>
+<p>Once this completes, you should see the new SmartApp under <em>My SmartApps</em> in the IDE.</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/nZfKrI_m8T-1394.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/nZfKrI_m8T-400.webp 400w, /assets/images/nZfKrI_m8T-800.webp 800w, /assets/images/nZfKrI_m8T-1394.webp 1394w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/nZfKrI_m8T-400.jpeg 400w, /assets/images/nZfKrI_m8T-800.jpeg 800w, /assets/images/nZfKrI_m8T-1394.jpeg 1394w" sizes="100vw">
+    <img width="1394" height="50" src="/assets/images/nZfKrI_m8T-1394.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >My SmartApps in the IDE</figcaption></figure>
+<p>The SmartApp is now installed.</p>
+<h3 id="configure-the-app-settings"><a class="to-underline" href="#configure-the-app-settings">Configure the App Settings</a></h3>
+<p>The app needs to know how to connect to our Azure storage queue. Remember those Smartthings Settings you stored safely in the last section? We need those now.</p>
+<p>On the <em>My SmartApps</em> screen, click the <em>edit properties</em> button next to jschnurr:ST-Queue.</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/m-5Del_6lb-707.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/m-5Del_6lb-400.webp 400w, /assets/images/m-5Del_6lb-707.webp 707w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/m-5Del_6lb-400.jpeg 400w, /assets/images/m-5Del_6lb-707.jpeg 707w" sizes="100vw">
+    <img width="707" height="53" src="/assets/images/m-5Del_6lb-707.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Edit properties button</figcaption></figure>
+<p>The <em>edit properties</em> dialog appears. Fill in the values from the last section, and click <em>Update</em>.</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/FOPnWdKIk7-604.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/FOPnWdKIk7-400.webp 400w, /assets/images/FOPnWdKIk7-604.webp 604w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/FOPnWdKIk7-400.jpeg 400w, /assets/images/FOPnWdKIk7-604.jpeg 604w" sizes="100vw">
+    <img width="604" height="368" src="/assets/images/FOPnWdKIk7-604.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Edit Properties dialog</figcaption></figure>
+<h3 id="add-the-app-in-the-smartthings-mobile-app"><a class="to-underline" href="#add-the-app-in-the-smartthings-mobile-app">Add the app in the Smartthings Mobile App</a></h3>
+<p>For the app to receive events and process data, it needs to be authorised. This is done with the Smartthings mobile app.</p>
+<p>After adding the app itself, you can select which devices you would like to send data for. Only selected devices will emit events and be sent to Azure by the SmartApp.</p>
+<p>See the flow in the images below.</p>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/1ZPcGoMA_v-1492.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/1ZPcGoMA_v-400.webp 400w, /assets/images/1ZPcGoMA_v-800.webp 800w, /assets/images/1ZPcGoMA_v-1492.webp 1492w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/1ZPcGoMA_v-400.jpeg 400w, /assets/images/1ZPcGoMA_v-800.jpeg 800w, /assets/images/1ZPcGoMA_v-1492.jpeg 1492w" sizes="100vw">
+    <img width="1492" height="435" src="/assets/images/1ZPcGoMA_v-1492.jpeg" alt=""  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >Device screens to add and configure the SmartApp</figcaption></figure>
+<hr>
+<h2 id="conclusion"><a class="to-underline" href="#conclusion">Conclusion</a></h2>
+<p>That’s it! At this point, any events triggered by the devices you selected in the app will be propagated through to Azure, and end up in CosmosDB.</p>
+<p>In a later post, we’ll take a look at the insights you can extract from the data.  Enjoy!</p>
+
+
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+         */
+        /*
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() {  // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            
+            s.src = 'https://jeffsidea.disqus.com/embed.js';
+            
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</article>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5761ffa09e14ce18"></script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://jeffsidea.com/stream-smartthings-data-to-azure/"
+    },
+    "headline": "Stream SmartThings data to Azure",
+    "description": "Store and analyze events from your smart devices and sensors in the cloud",
+    
+    "datePublished": "2020-08-30T00:00:00.000Z",
+    "author": {
+      "@type": "Person",
+      "name": "Jeff Schnurr"
+    }
+  }
+</script>
+
+</main><footer class="page-footer">
+    <div class="page-footer-container container col-wrap align-center">
+        <div class="stack gap--2">
+            <p class="fs-sm">&copy;
+                Jeff Schnurr, 2022
+            </p>
+        </div>
+        <ul class="page-footer-socials flex-center flex-wrap gap-0"><li>
+                    <a href="https://twitter.com/jeffsidea" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        Twitter
+                    </a>
+                </li><li>
+                    <a href="https://github.com/jschnurr" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        GitHub
+                    </a>
+                </li><li>
+                    <a href="https://www.linkedin.com/in/schnurr/" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        LinkedIn
+                    </a>
+                </li><li>
+                <a class="outline-offset to-underline" href="/feed.xml">
+                    RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+</html>

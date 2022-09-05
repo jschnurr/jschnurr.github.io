@@ -1,0 +1,4 @@
+/blog/dev/* /blog/:splat
+/blog/computer-science/* /blog/:splat
+/blog/off-topic/* /blog/:splat
+/assets/images/posts/:slug/*  /assets/images/:splat

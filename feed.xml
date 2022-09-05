@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>@jeffsidea</title>
+  <subtitle>A blog about cloud, code and innovation at enterprise scale.</subtitle>
+  <link href="https://jeffsidea.com/feed.xml" rel="self"/>
+  <link href="https://jeffsidea.com/" rel="alternate" type="text/html"/>
+  <updated>Sun, 30 Aug 2020 00:00:00 GMT</updated>
+  <id>https://jeffsidea.com/</id>
+  <author>
+    <name>Jeff Schnurr</name>
+    <email>jschnurr@gmail.com</email>
+  </author>
+  <entry>
+    <title>Stream SmartThings data to Azure</title>
+    <link href="https://jeffsidea.com/stream-smartthings-data-to-azure/"/>
+    <published>Sun, 30 Aug 2020 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/stream-smartthings-data-to-azure/</id>
+    <category term="smarthome" />
+    <category term="cloud" />
+    <content type="html">Store and analyze events from your smart devices and sensors in the cloud</content>
+  </entry>
+  <entry>
+    <title>Shut up and build!</title>
+    <link href="https://jeffsidea.com/shut-up-and-build/"/>
+    <published>Sat, 24 Jun 2017 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/shut-up-and-build/</id>
+    <category term="innovation" />
+    <category term="prototypes" />
+    <content type="html">Prototypes are a practical way to break the logjam and get people talking about ideas.</content>
+  </entry>
+  <entry>
+    <title>Using Scrapy from a script or celery task</title>
+    <link href="https://jeffsidea.com/using-scrapy-from-a-script-or-celery-task/"/>
+    <published>Wed, 22 Jun 2016 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/using-scrapy-from-a-script-or-celery-task/</id>
+    <category term="python" />
+    <category term="scrapy" />
+    <category term="oss" />
+    <content type="html">The Scrapy framework is a powerful Python package for web scraping. Reduce the overhead and run it as a script.</content>
+  </entry>
+  <entry>
+    <title>Is Customer Support helping you build better products??</title>
+    <link href="https://jeffsidea.com/is-customer-support-helping-you-build-better-products/"/>
+    <published>Sun, 04 Jan 2015 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/is-customer-support-helping-you-build-better-products/</id>
+    <category term="support" />
+    <category term="product" />
+    <category term="proactive" />
+    <content type="html">Manage the friction in your solution through a lifecycle until it doesn&#39;t exist at all.</content>
+  </entry>
+  <entry>
+    <title>5 ways IT can think like the business</title>
+    <link href="https://jeffsidea.com/5-ways-it-can-think-like-the-business/"/>
+    <published>Wed, 20 Nov 2013 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/5-ways-it-can-think-like-the-business/</id>
+    <category term="IT" />
+    <category term="business" />
+    <content type="html">IT teams want a seat at the table, to be a business partner. How can we earn it?</content>
+  </entry>
+  <entry>
+    <title>Improve your products with a story</title>
+    <link href="https://jeffsidea.com/improve-your-products-with-a-story/"/>
+    <published>Mon, 07 Oct 2013 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/improve-your-products-with-a-story/</id>
+    <category term="support" />
+    <category term="product" />
+    <category term="communication" />
+    <content type="html">How to use insights from the service team to influence product decision making.</content>
+  </entry>
+  <entry>
+    <title>12 steps to converting a customer crisis into loyalty</title>
+    <link href="https://jeffsidea.com/12-steps-to-converting-a-customer-crisis-into-loyalty/"/>
+    <published>Sun, 01 Sep 2013 00:00:00 GMT</published>
+    <id>https://jeffsidea.com/12-steps-to-converting-a-customer-crisis-into-loyalty/</id>
+    <category term="support" />
+    <category term="customers" />
+    <category term="escalation" />
+    <content type="html">Solving technical problems for enterprise customers is about more than the technology.</content>
+  </entry>
+  
+</feed>

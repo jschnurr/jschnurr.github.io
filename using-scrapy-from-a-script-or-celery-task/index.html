@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="en-US" data-theme="light">
+<head>
+  <meta charset="utf-8"><title>Using Scrapy from a script or celery task | @jeffsidea</title>
+  <meta name="description" content="The Scrapy framework is a powerful Python package for web scraping. Reduce the overhead and run it as a script.">
+  <meta name="keywords" content="Jeff Schnurr">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Jeff Schnurr">
+  <link rel="canonical" href="https://jeffsidea.com/using-scrapy-from-a-script-or-celery-task/"><style>@font-face{font-family:Rubik-fallback;size-adjust:105%;src:local("Arial")}@font-face{font-family:Bitter-fallback;size-adjust:114.5%;src:local("Times New Roman")}@font-face{font-family:Bitter;font-style:normal;font-weight:100 900;font-display:swap;src:local("Bitter"),local("Bitter-Thin"),url("/assets/fonts/bitter-variable.woff2") format("woff2 supports variations"),url("/assets/fonts/bitter-variable.woff2") format("woff2-variations")}@font-face{font-family:Rubik;font-style:normal;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Regular"),url("/assets/fonts/rubik-400.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:italic;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Italic"),url("/assets/fonts/rubik-italic.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:normal;font-weight:700;font-display:swap;src:local("Rubik"),local("Rubik-Bold"),url("/assets/fonts/rubik-700.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Regular"),url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Medium"),url("/assets/fonts/ibm-plex-mono-500.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:700;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Bold"),url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2")}html{--ff-title:Bitter,Bitter-fallback;--fw-title-regular:400;--fw-title-bold:750;--ff-body:Rubik,Rubik-fallback;--fw-body-regular:400;--fw-body-bold:700;--ff-code:IBM Plex Mono,Monaco,Consolas,Courier New,monospace;--fw-code-regular:400;--fw-code-medium:500;--fw-code-bold:700}body{font-family:var(--ff-body)}h1,h2,h3,h4,h5,h6{font-family:var(--ff-title)}code{font-family:var(--ff-code)}</style><link rel="stylesheet" href="/assets/styles/main.css"><link href="/assets/images/favicons/favicon-16.png" rel="icon" sizes="16x16">
+<link href="/assets/images/favicons/favicon-32.png" rel="icon" sizes="32x32">
+<link href="/assets/images/favicons/favicon-57.png" rel="icon" sizes="57x57">
+<link href="/assets/images/favicons/favicon-76.png" rel="icon" sizes="76x76">
+<link href="/assets/images/favicons/favicon-96.png" rel="icon" sizes="96x96">
+<link href="/assets/images/favicons/favicon-128.png" rel="icon" sizes="128x128">
+<link href="/assets/images/favicons/favicon-180.png" rel="apple-touch-icon">
+<link href="/assets/images/favicons/favicon-192.png" rel="icon" sizes="192x192">
+<link href="/assets/images/favicons/favicon-228.png" rel="icon" sizes="228x228"><script>
+        (function() {
+        const cachedTheme = localStorage.getItem('theme');
+        if (cachedTheme) {
+            document.documentElement.dataset.theme = cachedTheme;
+        } else {
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.dataset.theme = preferredTheme;
+        }
+        })();
+    </script><script type="module" src="/assets/scripts/index.mjs"></script><meta property="og:title" content="Using Scrapy from a script or celery task | @jeffsidea"><meta property="og:description" content="The Scrapy framework is a powerful Python package for web scraping. Reduce the overhead and run it as a script.">
+  <meta property="og:url" content="https://jeffsidea.com/using-scrapy-from-a-script-or-celery-task/">
+  <meta property="og:type" content="article">
+  <meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@jeffsidea">
+  <meta name="twitter:title" content="Using Scrapy from a script or celery task | @jeffsidea">
+  <meta name="twitter:description" content="The Scrapy framework is a powerful Python package for web scraping. Reduce the overhead and run it as a script.">
+      <link rel="preload" as="style" type="text/css" href="/assets/styles/main.css" >
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/rubik-400.woff2" crossorigin>
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bitter-variable.woff2" crossorigin>
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/ibm-plex-mono-500.woff2" crossorigin><link rel="alternate" type="application/rss+xml" title="RSS Feed for jeffsidea.com" href="/feed.xml" /><noscript><style>#theme-toggle,.youtube-embed{display:none;}</style></noscript><meta name="generator" content="Eleventy v2.0.0"></head>
+<body>
+  <header class="navbar-header flex align-center">
+  <div class="container flex align-center gap-0">
+    <nav class="navbar flex align-center justify-between gap--2 fs-sm" aria-label="Primary">
+      <a href="#page-content" class="screen-reader-only skip-navigation">Skip to content</a>
+      <a class="navbar-branding outline-offset" href="/" aria-label="Home page" >
+        <img src="/assets/images/favicons/favicon-128.png" class="navbar-logo circle" alt="" />
+        <span class="navbar-site-name">@jeffsidea</span>
+      </a>
+      <ul class="navbar-links flex align-center"><li class="navbar-item home">
+          <a class="navbar-link" href="/" >Home</a>
+        </li><li class="navbar-item"><a
+            class="navbar-link"
+            href="/about/"
+            >About</a>
+        </li><li class="navbar-item"><a
+            class="navbar-link"
+            href="/blog/"
+            aria-current="page">Blog</a>
+        </li></ul>
+    </nav>
+    <div>
+      <button id="theme-toggle" class="lamp" aria-label="Enable dark mode theme" aria-pressed="false" type="button">
+        <span class="lamp-base"></span>
+        <span class="lamp-neck"></span>
+        <span class="lamp-head"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="page-content" class="container">
+  
+<article class="post stack gap-6">
+  <header class="post-header">
+      <dl class="post-date inline-list">
+        <div>
+          <dt class="screen-reader-only">Published</dt>
+          <dd><time datetime="2016-06-22" >Jun 22, 2016</time>
+</dd>
+        </div>
+        
+      </dl>
+    <h1 class="post-title">Using Scrapy from a script or celery task</h1>
+    <ul class="post-tags flex flex-wrap gap--2" aria-label="Tags"><li>
+          <a href="/tags/python/" class="post-tag" aria-label="python">python</a>
+        </li><li>
+          <a href="/tags/scrapy/" class="post-tag" aria-label="scrapy">scrapy</a>
+        </li><li>
+          <a href="/tags/oss/" class="post-tag" aria-label="oss">oss</a>
+        </li></ul>
+  </header>
+  <div class="post-content rhythm">
+    <p><a href="http://scrapy.org" target="_blank" rel="noreferrer noopener">Scrapy</a> is a web scraping framework for Python. If you followed
+the <a href="http://doc.scrapy.org/en/latest/intro/tutorial.html" target="_blank" rel="noreferrer noopener">tutorial</a>, the steps include
+creating a project, defining an item, writing a spider, and initiating a crawl from
+the command line.</p>
+<p>This method is fine for a large scraping project, but what if you’d like to scrape
+some web content from within another application, or spawn a Celery task to do so
+asynchronously? The <a href="http://doc.scrapy.org/en/latest/topics/practices.html#run-scrapy-from-a-script" target="_blank" rel="noreferrer noopener">documentation</a>
+describes a method to run scrapy from a script, but I found the need to use
+<code>CrawlerProcess</code> and <code>Twisted</code> to be more complex than it should be. Similarly, a Google
+search turns up various methods using the multiprocessing library, but they
+can be difficult to follow, and often won’t work with Celery because it doesn’t
+like subprocesses.</p>
+<p>To simplify things, I created a package called <code>scrapyscript</code>, and made it
+available on <a href="https://pypi.python.org/pypi/scrapyscript" target="_blank" rel="noreferrer noopener">Pypi</a>. The source is on
+<a href="https://github.com/jschnurr/scrapyscript" target="_blank" rel="noreferrer noopener">Github</a>. It works on Python 2.7 and 3.4.</p>
+<p>To use it, you first need to define an instance of <code>scrapy.spiders.Spider</code>. For example,
+this code instructs Scrapy to retrieve <code>www.python.org</code>, parse out the title using
+the xpath syntax <code>//title/text()</code>, <code>extract()</code> the text itself, and return the result
+as a Python dictionary. Of course, your spider could be as complex as you like, limited
+only by the capabilties of Scrapy itself.</p>
+<p>This example also makes use of the <code>payload</code> option, which is explained later.</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">from</span> scrapy<span class="token punctuation">.</span>spiders <span class="token keyword">import</span> Spider
+
+<span class="token keyword">class</span> <span class="token class-name">PythonSpider</span><span class="token punctuation">(</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">'myspider'</span>
+    start_urls <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'http://www.python.org'</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        title <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//title/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>payload<span class="token punctuation">:</span>
+           mantra <span class="token operator">=</span> self<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'mantra'</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            mantra <span class="token operator">=</span> <span class="token boolean">None</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">'title'</span><span class="token punctuation">:</span> title<span class="token punctuation">,</span>
+                <span class="token string">'mantra'</span><span class="token punctuation">:</span> mantra<span class="token punctuation">}</span>
+
+spider <span class="token operator">=</span> PythonSpider<span class="token punctuation">(</span><span class="token punctuation">)</span>
+</code></pre>
+<p>Optionally, you can create an instance of <code>scrapy.settings.Settings</code>, to further
+customize how Scrapy will behave. Otherwise, scrapyscript will use Scrapy’s
+default values.</p>
+<p>Let’s define <code>settings</code> to specify a user agent.</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">from</span> scrapy<span class="token punctuation">.</span>settings <span class="token keyword">import</span> Settings
+settings <span class="token operator">=</span> Settings<span class="token punctuation">(</span><span class="token punctuation">)</span>
+settings<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'USER_AGENT'</span><span class="token punctuation">,</span>
+<span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36'</span><span class="token punctuation">)</span>
+</code></pre>
+<h3 id="jobs"><a class="to-underline" href="#jobs">Jobs</a></h3>
+<p>Next, we need to define one or more instances of <code>scrapyscript.Job</code>. Jobs contain your spider,
+and any data (payload) you would like to pass into the running instance.</p>
+<h4 id="basic-job"><a class="to-underline" href="#basic-job">Basic Job</a></h4>
+<pre class="language-python"><code class="language-python">basicjob <span class="token operator">=</span> Job<span class="token punctuation">(</span>spider<span class="token punctuation">)</span>
+</code></pre>
+<h4 id="passing-an-object"><a class="to-underline" href="#passing-an-object">Passing an object</a></h4>
+<p>To make extra data available in the running spider, add it to the job using the payload kwarg.</p>
+<pre class="language-python"><code class="language-python">jobwithdata <span class="token operator">=</span> Job<span class="token punctuation">(</span>spider<span class="token punctuation">,</span>
+                  payload<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'mantra'</span><span class="token punctuation">:</span> <span class="token string">'Simple is better than complex.'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  <span class="token comment"># availabe in spider as self.payload</span>
+</code></pre>
+<h3 id="processor"><a class="to-underline" href="#processor">Processor</a></h3>
+<p>We have now defined two jobs - <code>basicjob</code> and <code>jobwithdata</code>. To start Scrapy and run these jobs,
+we need to instantiate an instance of <code>scrapyscript.Processor</code>, call the <code>run</code> method, and pass
+them in as a list.</p>
+<p>Optionally, you can supply settings. Since we’ve defined them, we’ll pass them in.</p>
+<pre class="language-python"><code class="language-python">Processor<span class="token punctuation">(</span>settings<span class="token operator">=</span>settings<span class="token punctuation">)</span><span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">[</span>basicjob<span class="token punctuation">,</span> jobwithdata<span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment">#    [{'mantra': None, 'title': ['Welcome to Python.org']},</span>
+<span class="token comment">#     {'mantra': 'Simple is better than complex.',</span>
+<span class="token comment">#      'title': ['Welcome to Python.org']}]</span>
+</code></pre>
+<h3 id="how-does-it-work"><a class="to-underline" href="#how-does-it-work">How does it work?</a></h3>
+<p>scrapyscript uses a fork of the Multiprocessing library to create a process, launch a twisted reactor,
+and run the spiders in Scrapy. All Jobs are run in parallel, and the process blocks until all
+are complete. The results come back as a list, as you can see above.</p>
+<h3 id="using-celery"><a class="to-underline" href="#using-celery">Using Celery</a></h3>
+<p>In part 2, I’ll walk through the process of using scrapyscript in a Celery worker.</p>
+<h3 id="complete-code"><a class="to-underline" href="#complete-code">Complete Code</a></h3>
+<p>For your convenience, here is the full example.</p>
+<pre class="language-python"><code class="language-python"><span class="token keyword">from</span> scrapy<span class="token punctuation">.</span>spiders <span class="token keyword">import</span> Spider
+<span class="token keyword">from</span> scrapy<span class="token punctuation">.</span>settings <span class="token keyword">import</span> Settings
+
+<span class="token keyword">class</span> <span class="token class-name">PythonSpider</span><span class="token punctuation">(</span>Spider<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">'myspider'</span>
+    start_urls <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">'http://www.python.org'</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">parse</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> response<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        title <span class="token operator">=</span> response<span class="token punctuation">.</span>xpath<span class="token punctuation">(</span><span class="token string">'//title/text()'</span><span class="token punctuation">)</span><span class="token punctuation">.</span>extract<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">if</span> self<span class="token punctuation">.</span>payload<span class="token punctuation">:</span>
+           mantra <span class="token operator">=</span> self<span class="token punctuation">.</span>payload<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">'mantra'</span><span class="token punctuation">,</span> <span class="token boolean">None</span><span class="token punctuation">)</span>
+        <span class="token keyword">else</span><span class="token punctuation">:</span>
+            mantra <span class="token operator">=</span> <span class="token boolean">None</span>
+        <span class="token keyword">return</span> <span class="token punctuation">{</span><span class="token string">'title'</span><span class="token punctuation">:</span> title<span class="token punctuation">,</span>
+                <span class="token string">'mantra'</span><span class="token punctuation">:</span> mantra<span class="token punctuation">}</span>
+
+spider <span class="token operator">=</span> PythonSpider<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+settings <span class="token operator">=</span> Settings<span class="token punctuation">(</span><span class="token punctuation">)</span>
+settings<span class="token punctuation">.</span><span class="token builtin">set</span><span class="token punctuation">(</span><span class="token string">'USER_AGENT'</span><span class="token punctuation">,</span>
+<span class="token string">'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/50.0.2661.86 Safari/537.36'</span><span class="token punctuation">)</span>
+
+basicjob <span class="token operator">=</span> Job<span class="token punctuation">(</span>spider<span class="token punctuation">)</span>
+jobwithdata <span class="token operator">=</span> Job<span class="token punctuation">(</span>spider<span class="token punctuation">,</span>
+                  payload<span class="token operator">=</span><span class="token punctuation">{</span><span class="token string">'mantra'</span><span class="token punctuation">:</span> <span class="token string">'Simple is better than complex.'</span><span class="token punctuation">}</span><span class="token punctuation">)</span>  <span class="token comment"># availabe in spider as self.payload</span>
+
+Processor<span class="token punctuation">(</span>settings<span class="token operator">=</span>settings<span class="token punctuation">)</span><span class="token punctuation">.</span>run<span class="token punctuation">(</span><span class="token punctuation">[</span>basicjob<span class="token punctuation">,</span> jobwithdata<span class="token punctuation">]</span><span class="token punctuation">)</span>
+</code></pre>
+
+
+    <div id="disqus_thread"></div>
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables
+         */
+        /*
+        var disqus_config = function () {
+            this.page.url = PAGE_URL;  // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = PAGE_IDENTIFIER; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+        */
+        (function() {  // DON'T EDIT BELOW THIS LINE
+            var d = document, s = d.createElement('script');
+            
+            s.src = 'https://jeffsidea.disqus.com/embed.js';
+            
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript" rel="nofollow">comments powered by Disqus.</a></noscript>
+  </div>
+</article>
+
+<!-- Go to www.addthis.com/dashboard to customize your tools -->
+<script type="text/javascript" src="//s7.addthis.com/js/300/addthis_widget.js#pubid=ra-5761ffa09e14ce18"></script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BlogPosting",
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://jeffsidea.com/using-scrapy-from-a-script-or-celery-task/"
+    },
+    "headline": "Using Scrapy from a script or celery task",
+    "description": "The Scrapy framework is a powerful Python package for web scraping. Reduce the overhead and run it as a script.",
+    
+    "datePublished": "2016-06-22T00:00:00.000Z",
+    "author": {
+      "@type": "Person",
+      "name": "Jeff Schnurr"
+    }
+  }
+</script>
+
+</main><footer class="page-footer">
+    <div class="page-footer-container container col-wrap align-center">
+        <div class="stack gap--2">
+            <p class="fs-sm">&copy;
+                Jeff Schnurr, 2022
+            </p>
+        </div>
+        <ul class="page-footer-socials flex-center flex-wrap gap-0"><li>
+                    <a href="https://twitter.com/jeffsidea" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        Twitter
+                    </a>
+                </li><li>
+                    <a href="https://github.com/jschnurr" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        GitHub
+                    </a>
+                </li><li>
+                    <a href="https://www.linkedin.com/in/schnurr/" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        LinkedIn
+                    </a>
+                </li><li>
+                <a class="outline-offset to-underline" href="/feed.xml">
+                    RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+</html>

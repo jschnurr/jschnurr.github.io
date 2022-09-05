@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="en-US" data-theme="light">
+<head>
+  <meta charset="utf-8"><title>Design System | @jeffsidea</title>
+  <meta name="description" content="Design tokens for my website.">
+  <meta name="keywords" content="Jeff Schnurr">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="author" content="Jeff Schnurr">
+  <link rel="canonical" href="https://jeffsidea.com/design/"><meta name="robots" content="noindex"><style>@font-face{font-family:Rubik-fallback;size-adjust:105%;src:local("Arial")}@font-face{font-family:Bitter-fallback;size-adjust:114.5%;src:local("Times New Roman")}@font-face{font-family:Bitter;font-style:normal;font-weight:100 900;font-display:swap;src:local("Bitter"),local("Bitter-Thin"),url("/assets/fonts/bitter-variable.woff2") format("woff2 supports variations"),url("/assets/fonts/bitter-variable.woff2") format("woff2-variations")}@font-face{font-family:Rubik;font-style:normal;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Regular"),url("/assets/fonts/rubik-400.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:italic;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Italic"),url("/assets/fonts/rubik-italic.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:normal;font-weight:700;font-display:swap;src:local("Rubik"),local("Rubik-Bold"),url("/assets/fonts/rubik-700.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Regular"),url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Medium"),url("/assets/fonts/ibm-plex-mono-500.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:700;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Bold"),url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2")}@font-face{font-family:Bitter;font-style:normal;font-weight:100 900;font-display:swap;src:local("Bitter"),local("Bitter-Thin"),url("/assets/fonts/bitter-variable.woff2") format("woff2 supports variations"),url("/assets/fonts/bitter-variable.woff2") format("woff2-variations")}@font-face{font-family:Rubik;font-style:normal;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Regular"),url("/assets/fonts/rubik-400.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:italic;font-weight:400;font-display:swap;src:local("Rubik"),local("Rubik-Italic"),url("/assets/fonts/rubik-italic.woff2") format("woff2")}@font-face{font-family:Rubik;font-style:normal;font-weight:700;font-display:swap;src:local("Rubik"),local("Rubik-Bold"),url("/assets/fonts/rubik-700.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:400;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Regular"),url("/assets/fonts/ibm-plex-mono-400.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:500;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Medium"),url("/assets/fonts/ibm-plex-mono-500.woff2") format("woff2")}@font-face{font-family:"IBM Plex Mono";font-style:normal;font-weight:700;font-display:swap;src:local("IBM Plex Mono"),local("IBMPlexMono-Bold"),url("/assets/fonts/ibm-plex-mono-700.woff2") format("woff2")}html{--ff-title:Bitter,Bitter-fallback;--fw-title-regular:400;--fw-title-bold:750;--ff-body:Rubik,Rubik-fallback;--fw-body-regular:400;--fw-body-bold:700;--ff-code:IBM Plex Mono,Monaco,Consolas,Courier New,monospace;--fw-code-regular:400;--fw-code-medium:500;--fw-code-bold:700;--ff-title:Bitter,Bitter-fallback;--fw-title-regular:400;--fw-title-bold:750;--ff-body:Rubik,Rubik-fallback;--fw-body-regular:400;--fw-body-bold:700;--ff-code:IBM Plex Mono,Monaco,Consolas,Courier New,monospace;--fw-code-regular:400;--fw-code-medium:500;--fw-code-bold:700}body{font-family:var(--ff-body)}h1,h2,h3,h4,h5,h6{font-family:var(--ff-title)}code{font-family:var(--ff-code)}</style><link rel="stylesheet" href="/assets/styles/main.css"><link href="/assets/images/favicons/favicon-16.png" rel="icon" sizes="16x16">
+<link href="/assets/images/favicons/favicon-32.png" rel="icon" sizes="32x32">
+<link href="/assets/images/favicons/favicon-57.png" rel="icon" sizes="57x57">
+<link href="/assets/images/favicons/favicon-76.png" rel="icon" sizes="76x76">
+<link href="/assets/images/favicons/favicon-96.png" rel="icon" sizes="96x96">
+<link href="/assets/images/favicons/favicon-128.png" rel="icon" sizes="128x128">
+<link href="/assets/images/favicons/favicon-180.png" rel="apple-touch-icon">
+<link href="/assets/images/favicons/favicon-192.png" rel="icon" sizes="192x192">
+<link href="/assets/images/favicons/favicon-228.png" rel="icon" sizes="228x228"><script>
+        (function() {
+        const cachedTheme = localStorage.getItem('theme');
+        if (cachedTheme) {
+            document.documentElement.dataset.theme = cachedTheme;
+        } else {
+            const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            document.documentElement.dataset.theme = preferredTheme;
+        }
+        })();
+    </script><script type="module" src="/assets/scripts/index.mjs"></script><meta property="og:title" content="Design System | @jeffsidea"><meta property="og:description" content="Design tokens for my website.">
+  <meta property="og:url" content="https://jeffsidea.com/design/">
+  <meta property="og:type" content="website">
+  <meta property="og:locale" content="en_US"><meta name="twitter:card" content="summary">
+  <meta name="twitter:creator" content="@jeffsidea">
+  <meta name="twitter:title" content="Design System | @jeffsidea">
+  <meta name="twitter:description" content="Design tokens for my website.">
+      <link rel="preload" as="style" type="text/css" href="/assets/styles/main.css" >
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/rubik-400.woff2" crossorigin>
+      <link rel="preload" as="font" type="font/woff2" href="/assets/fonts/bitter-variable.woff2" crossorigin><link rel="alternate" type="application/rss+xml" title="RSS Feed for jeffsidea.com" href="/feed.xml" /><noscript><style>#theme-toggle,.youtube-embed{display:none;}</style></noscript><meta name="generator" content="Eleventy v2.0.0"></head>
+<body>
+  <header class="navbar-header flex align-center">
+  <div class="container flex align-center gap-0">
+    <nav class="navbar flex align-center justify-between gap--2 fs-sm" aria-label="Primary">
+      <a href="#page-content" class="screen-reader-only skip-navigation">Skip to content</a>
+      <a class="navbar-branding outline-offset" href="/" aria-label="Home page" >
+        <img src="/assets/images/favicons/favicon-128.png" class="navbar-logo circle" alt="" />
+        <span class="navbar-site-name">@jeffsidea</span>
+      </a>
+      <ul class="navbar-links flex align-center"><li class="navbar-item home">
+          <a class="navbar-link" href="/" >Home</a>
+        </li><li class="navbar-item"><a
+            class="navbar-link"
+            href="/about/"
+            >About</a>
+        </li><li class="navbar-item"><a
+            class="navbar-link"
+            href="/blog/"
+            >Blog</a>
+        </li></ul>
+    </nav>
+    <div>
+      <button id="theme-toggle" class="lamp" aria-label="Enable dark mode theme" aria-pressed="false" type="button">
+        <span class="lamp-base"></span>
+        <span class="lamp-neck"></span>
+        <span class="lamp-head"></span>
+      </button>
+    </div>
+  </div>
+</header>
+<main id="page-content" class="container">
+  
+<article class="post rhythm">
+  <h1>Design System</h1>
+  <h2 id="fonts"><a class="to-underline" href="#fonts">Fonts</a></h2>
+<h3 id="body-rubik"><a class="to-underline" href="#body-rubik">body (Rubik)</a></h3>
+<div class="scroll-x">
+  <table>
+    <caption>Rubik rendered at different font sizes</caption>
+    <thead>
+      <tr>
+        <th scope="col">Size</th>
+        <th scope="col">Demo</th>
+      </tr>
+    </thead>
+    <tbody><tr>
+          <td>xs</td>
+          <td class="fs-xs" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>sm</td>
+          <td class="fs-sm" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>base</td>
+          <td class="fs-base" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>md</td>
+          <td class="fs-md" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>lg</td>
+          <td class="fs-lg" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>xl</td>
+          <td class="fs-xl" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>2xl</td>
+          <td class="fs-2xl" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>3xl</td>
+          <td class="fs-3xl" style="font-family: var(--ff-body);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr></tbody>
+  </table>
+</div>
+<h3 id="title-bitter"><a class="to-underline" href="#title-bitter">title (Bitter)</a></h3>
+<div class="scroll-x">
+  <table>
+    <caption>Bitter rendered at different font sizes</caption>
+    <thead>
+      <tr>
+        <th scope="col">Size</th>
+        <th scope="col">Demo</th>
+      </tr>
+    </thead>
+    <tbody><tr>
+          <td>xs</td>
+          <td class="fs-xs" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>sm</td>
+          <td class="fs-sm" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>base</td>
+          <td class="fs-base" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>md</td>
+          <td class="fs-md" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>lg</td>
+          <td class="fs-lg" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>xl</td>
+          <td class="fs-xl" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>2xl</td>
+          <td class="fs-2xl" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>3xl</td>
+          <td class="fs-3xl" style="font-family: var(--ff-title);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr></tbody>
+  </table>
+</div>
+<h3 id="code-ibm-plex-mono"><a class="to-underline" href="#code-ibm-plex-mono">code (IBM Plex Mono)</a></h3>
+<div class="scroll-x">
+  <table>
+    <caption>IBM Plex Mono rendered at different font sizes</caption>
+    <thead>
+      <tr>
+        <th scope="col">Size</th>
+        <th scope="col">Demo</th>
+      </tr>
+    </thead>
+    <tbody><tr>
+          <td>xs</td>
+          <td class="fs-xs" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>sm</td>
+          <td class="fs-sm" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>base</td>
+          <td class="fs-base" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>md</td>
+          <td class="fs-md" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>lg</td>
+          <td class="fs-lg" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>xl</td>
+          <td class="fs-xl" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>2xl</td>
+          <td class="fs-2xl" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr><tr>
+          <td>3xl</td>
+          <td class="fs-3xl" style="font-family: var(--ff-code);">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s</td>
+        </tr></tbody>
+  </table>
+</div>
+<h2 id="colors"><a class="to-underline" href="#colors">Colors</a></h2>
+<h3 id="background"><a class="to-underline" href="#background">Background</a></h3>
+<div class="col-wrap" style="--columns: 5; --container-width: 10rem;"><div style="background-color: var(--color-surface-1); aspect-ratio: 1; outline: solid 1px;"></div><div style="background-color: var(--color-surface-2); aspect-ratio: 1; outline: solid 1px;"></div><div style="background-color: var(--color-surface-3); aspect-ratio: 1; outline: solid 1px;"></div><div style="background-color: var(--color-surface-4); aspect-ratio: 1; outline: solid 1px;"></div><div style="background-color: var(--color-surface-5); aspect-ratio: 1; outline: solid 1px;"></div></div>
+<h3 id="text"><a class="to-underline" href="#text">Text</a></h3>
+<div  class="col-wrap" style="--columns: 3;"><div style="color: var(--color-text-normal)"><strong>text-normal</strong>: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div><div style="color: var(--color-text-emphasis)"><strong>text-emphasis</strong>: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div><div style="color: var(--color-text-soft)"><strong>text-soft</strong>: Lorem Ipsum is simply dummy text of the printing and typesetting industry.</div></div>
+<h2 id="components"><a class="to-underline" href="#components">Components</a></h2>
+<h3 id="post-previews"><a class="to-underline" href="#post-previews">Post Previews</a></h3>
+<ol class="post-preview-grid"><li>
+  <article class="post-preview"><time datetime="2020-08-30"  class="post-preview-date fs-sm" >Aug 30, 2020</time>
+<h4 class="post-preview-title">
+      <a class="post-preview-link to-underline" href="/stream-smartthings-data-to-azure/">Stream SmartThings data to Azure</a>
+    </h4>
+    <p class="post-preview-description">Store and analyze events from your smart devices and sensors in the cloud</p>
+    <ul class="post-preview-tags flex flex-wrap gap--2 fs-sm" aria-label="Tags"><li>
+          <a href="/tags/smarthome/" class="post-preview-tag post-tag" aria-label="smarthome">smarthome</a>
+        </li><li>
+          <a href="/tags/cloud/" class="post-preview-tag post-tag" aria-label="cloud">cloud</a>
+        </li></ul>
+  </article>
+</li>
+<li>
+  <article class="post-preview"><time datetime="2017-06-24"  class="post-preview-date fs-sm" >Jun 24, 2017</time>
+<h4 class="post-preview-title">
+      <a class="post-preview-link to-underline" href="/shut-up-and-build/">Shut up and build!</a>
+    </h4>
+    <p class="post-preview-description">Prototypes are a practical way to break the logjam and get people talking about ideas.</p>
+    <ul class="post-preview-tags flex flex-wrap gap--2 fs-sm" aria-label="Tags"><li>
+          <a href="/tags/innovation/" class="post-preview-tag post-tag" aria-label="innovation">innovation</a>
+        </li><li>
+          <a href="/tags/prototypes/" class="post-preview-tag post-tag" aria-label="prototypes">prototypes</a>
+        </li></ul>
+  </article>
+</li>
+</ol>
+<h3 id="pill"><a class="to-underline" href="#pill">Pill</a></h3>
+<p><a href="#pill" class="pill" data-shape="round" data-size="sm">pill </a></p>
+<h3 id="pill-group"><a class="to-underline" href="#pill-group">Pill Group</a></h3>
+<div class="pill-group"><a href="#pill" class="pill" data-shape="round" data-size="sm">pill 1</a><a href="#pill" class="pill" data-shape="round" data-size="sm">pill 2</a><a href="#pill" class="pill" data-shape="round" data-size="sm">pill 3</a><a href="#pill" class="pill" data-shape="round" data-size="sm">pill 4</a></div>
+<h3 id="button"><a class="to-underline" href="#button">Button</a></h3>
+<p><button class="button" type="button">Click me</button></p>
+<h3 id="inline-code"><a class="to-underline" href="#inline-code">Inline Code</a></h3>
+<p>This is a <code>paragraph</code> with some inline <code>code</code>.</p>
+<h3 id="table"><a class="to-underline" href="#table">Table</a></h3>
+<div class="scroll-x">
+  <table>
+    <thead>
+      <tr>
+        <th scope="col">Viewport width</th>
+        <th scope="col" class="numeric">Min</th>
+        <th scope="col" class="numeric">Max</th>
+        <th scope="col" class="numeric">Preferred</th>
+        <th scope="col">Clamp return value</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="numeric"><code>320px</code></td>
+        <td class="numeric"><code>16px</code></td>
+        <td class="numeric"><code>24px</code></td>
+        <td class="numeric"><code>12.8px</code></td>
+        <td class="numeric"><code>16px</code></td>
+      </tr>
+      <tr>
+        <td class="numeric"><code>500px</code></td>
+        <td class="numeric"><code>16px</code></td>
+        <td class="numeric"><code>24px</code></td>
+        <td class="numeric"><code>20px</code></td>
+        <td class="numeric"><code>20px</code></td>
+      </tr>
+      <tr>
+        <td class="numeric"><code>1000px</code></td>
+        <td class="numeric"><code>16px</code></td>
+        <td class="numeric"><code>24px</code></td>
+        <td class="numeric"><code>40px</code></td>
+        <td class="numeric"><code>24px</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+<h3 id="code-block"><a class="to-underline" href="#code-block">Code Block</a></h3>
+<h4 id="javascript"><a class="to-underline" href="#javascript">JavaScript</a></h4>
+<pre class="language-js"><code data-file="path/to/some/file.js" data-copyable="true" class="language-js"><span class="token keyword">const</span> <span class="token function-variable function">getEvenNumbers</span> <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token parameter">array</span><span class="token punctuation">)</span> <span class="token operator">=></span> <span class="token punctuation">{</span>
+  <span class="token keyword">return</span> array<span class="token punctuation">.</span><span class="token function">filter</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token parameter">n</span><span class="token punctuation">)</span> <span class="token operator">=></span> n <span class="token operator">%</span> <span class="token number">2</span> <span class="token operator">===</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span><span class="token punctuation">;</span>
+
+console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token function">getEvenNumbers</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token number">1</span><span class="token punctuation">,</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+</code></pre>
+<h4 id="css"><a class="to-underline" href="#css">CSS</a></h4>
+<pre class="language-css"><code data-file="path/to/some/file.css" data-copyable="true" class="language-css"><span class="token selector">.navbar-link</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* comment */</span>
+  <span class="token property">background-color</span><span class="token punctuation">:</span> #fff<span class="token punctuation">;</span>
+  <span class="token property">color</span><span class="token punctuation">:</span> #000<span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token selector">.navbar-link:is(:hover, :focus, [aria-current='page'])</span> <span class="token punctuation">{</span>
+  <span class="token comment">/* more css */</span>
+<span class="token punctuation">}</span>
+</code></pre>
+<h4 id="liquid"><a class="to-underline" href="#liquid">Liquid</a></h4>
+<pre class="language-liquid"><code data-file="path/to/some/file.html" data-copyable="true" class="language-liquid"><span class="token liquid language-liquid"><span class="token delimiter punctuation">{%</span> <span class="token keyword">if</span> someCondition <span class="token delimiter punctuation">%}</span></span><span class="token liquid language-liquid"><span class="token delimiter punctuation">{%</span> <span class="token keyword">endif</span> <span class="token delimiter punctuation">%}</span></span>
+<span class="token liquid language-liquid"><span class="token delimiter punctuation">{%</span> <span class="token keyword">for</span> i <span class="token keyword">in</span> <span class="token punctuation">(</span><span class="token number">1</span><span class="token range operator">..</span><span class="token number">3</span><span class="token punctuation">)</span> <span class="token delimiter punctuation">%}</span></span><span class="token liquid language-liquid"><span class="token delimiter punctuation">{%</span> <span class="token keyword">endfor</span> <span class="token delimiter punctuation">%}</span></span>
+<span class="token liquid language-liquid"><span class="token delimiter punctuation">{%</span> <span class="token keyword">assign</span> foo <span class="token operator">=</span> <span class="token string">'bar'</span> <span class="token delimiter punctuation">%}</span></span>
+</code></pre>
+<h4 id="markdown"><a class="to-underline" href="#markdown">Markdown</a></h4>
+<pre class="language-md"><code data-file="path/to/some/file.html" data-copyable="true" class="language-md"><span class="token bold"><span class="token punctuation">**</span><span class="token content">This</span><span class="token punctuation">**</span></span> is <span class="token url">[<span class="token content">Markdown</span>](<span class="token url">https://en.wikipedia.org/wiki/Markdown</span>)</span>
+
+<span class="token title important"><span class="token punctuation">#</span> heading level one would go here</span>
+
+some <span class="token italic"><span class="token punctuation">_</span><span class="token content">italicized text</span><span class="token punctuation">_</span></span> perhaps
+</code></pre>
+<h4 id="html"><a class="to-underline" href="#html">HTML</a></h4>
+<pre class="language-html"><code data-file="path/to/some/file.html" data-copyable="true" class="language-html"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>foo<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>div</span> <span class="token attr-name">class</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>div soup<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>It's divs all the way down<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>div</span><span class="token punctuation">></span></span>
+</code></pre>
+<h3 id="card"><a class="to-underline" href="#card">Card</a></h3>
+<div class="card">
+  <h3>Sample h3 title</h3>
+  Vivamus pellentesque tellus nisi, id cursus libero scelerisque at. Curabitur pellentesque erat at erat congue, vitae maximus lorem vehicula. Aliquam mollis eros sem, eget commodo dolor dictum at.
+</div>
+<h3 id="aside"><a class="to-underline" href="#aside">Aside</a></h3>
+<aside role="note" class="post-aside rhythm"><p>Cras eu aliquet est. Cras tempor ex ut sagittis pharetra. In semper ac nunc id faucibus. Praesent vitae nunc facilisis, porttitor nisi sed, blandit massa. Duis hendrerit lectus quam, ac lobortis lectus euismod et.</p>
+<p>In cursus tellus ex, a rhoncus erat bibendum sit amet. Proin sollicitudin pharetra nulla quis dignissim. Phasellus et nibh felis.</p>
+</aside>
+<h3 id="definition"><a class="to-underline" href="#definition">Definition</a></h3>
+<blockquote class="definition post-aside rhythm"><p><dfn><strong>Term</strong></dfn>: Definition of the term goes here.</p>
+</blockquote>
+<h3 id="quote"><a class="to-underline" href="#quote">Quote</a></h3>
+<blockquote class="rhythm" cite="https://www.lipsum.com/feed/html">
+    <div class="quote rhythm"><p>Sed libero libero, cursus ut lacus at, luctus molestie augue. Nulla vehicula elementum est. Donec tincidunt est sit amet augue sodales auctor. Quisque tincidunt vestibulum lorem sed commodo. Praesent dictum vestibulum cursus. Nullam massa neque, molestie a eleifend at, iaculis et urna. Cras suscipit nibh at risus sollicitudin pretium. Praesent eget sem vitae ante mollis elementum. Nullam sollicitudin est in nisi porttitor, nec suscipit nunc pharetra.</p>
+<p>Duis ultrices nunc in finibus pharetra. Nullam ornare ex sit amet diam interdum porta. Sed non libero vel est auctor suscipit quis eget mi. Phasellus vestibulum neque id luctus imperdiet.</p>
+</div>
+    <cite class="fs-sm">
+      <a href="https://www.lipsum.com/feed/html" target="_blank" rel="noreferrer noopener">Source of the Quote</a>
+    </cite>
+  </blockquote>
+<h3 id="image"><a class="to-underline" href="#image">Image</a></h3>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/cgujwe-__c-1170.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/cgujwe-__c-400.webp 400w, /assets/images/cgujwe-__c-800.webp 800w, /assets/images/cgujwe-__c-1170.webp 1170w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/cgujwe-__c-400.jpeg 400w, /assets/images/cgujwe-__c-800.jpeg 800w, /assets/images/cgujwe-__c-1170.jpeg 1170w" sizes="100vw">
+    <img width="1170" height="780" src="/assets/images/cgujwe-__c-1170.jpeg" alt="A multi-color parrot tilts its head towards the camera and glances playfully at the viewer."  loading="lazy" decoding="async">
+  </picture></a></figure>
+<h3 id="figure-with-caption"><a class="to-underline" href="#figure-with-caption">Figure with Caption</a></h3>
+<figure class="full-bleed"><a class="outline-offset" href="/assets/images/cgujwe-__c-1170.webp"><picture >
+    <source type="image/webp" srcset="/assets/images/cgujwe-__c-400.webp 400w, /assets/images/cgujwe-__c-800.webp 800w, /assets/images/cgujwe-__c-1170.webp 1170w" sizes="100vw">
+<source type="image/jpeg" srcset="/assets/images/cgujwe-__c-400.jpeg 400w, /assets/images/cgujwe-__c-800.jpeg 800w, /assets/images/cgujwe-__c-1170.jpeg 1170w" sizes="100vw">
+    <img width="1170" height="780" src="/assets/images/cgujwe-__c-1170.jpeg" alt="A multi-color parrot tilts its head towards the camera and glances playfully at the viewer."  loading="lazy" decoding="async">
+  </picture></a><figcaption class="container" >A multi-color parrot tilts its head towards the camera and glances playfully at the viewer. Photo by <a href="https://unsplash.com/photos/Xxo3-8bqGro" target="_blank" rel="noreferrer noopener">Timothy Dykes</a> on Unsplash.</figcaption></figure>
+
+</article>
+
+</main><footer class="page-footer">
+    <div class="page-footer-container container col-wrap align-center">
+        <div class="stack gap--2">
+            <p class="fs-sm">&copy;
+                Jeff Schnurr, 2022
+            </p>
+        </div>
+        <ul class="page-footer-socials flex-center flex-wrap gap-0"><li>
+                    <a href="https://twitter.com/jeffsidea" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        Twitter
+                    </a>
+                </li><li>
+                    <a href="https://github.com/jschnurr" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        GitHub
+                    </a>
+                </li><li>
+                    <a href="https://www.linkedin.com/in/schnurr/" target="_blank" rel="noreferrer noopener" class="outline-offset to-underline">
+                        LinkedIn
+                    </a>
+                </li><li>
+                <a class="outline-offset to-underline" href="/feed.xml">
+                    RSS
+                </a>
+            </li>
+        </ul>
+    </div>
+</footer>
+
+</body>
+</html>
